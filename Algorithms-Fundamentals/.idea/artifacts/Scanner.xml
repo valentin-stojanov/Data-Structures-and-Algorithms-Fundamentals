@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Scanner">
+    <output-path>$PROJECT_DIR$/out/artifacts/Scanner</output-path>
+    <root id="archive" name="Scanner.jar">
+      <element id="file-copy" path="$PROJECT_DIR$/out/production/Algorithms-Fundamentals/Reader.class" />
+    </root>
+  </artifact>
+</component>
