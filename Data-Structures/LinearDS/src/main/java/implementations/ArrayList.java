@@ -21,7 +21,7 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean add(E element) {
-        ensureCapacity();
+        this.ensureCapacity();
         this.elements[size++] = element;
 
         return true;
@@ -29,10 +29,10 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean add(int index, E element) {
-        if (!isValidIndex(index)) {
+        if (!this.isValidIndex(index)) {
             return false;
         }
-        ensureCapacity();
+        this.ensureCapacity();
 
         for (int i = this.size; i >= index; i--) {
             this.elements[i + 1] = this.elements[i];
@@ -46,13 +46,13 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        validateIndex(index);
+        this.validateIndex(index);
         return (E) this.elements[index];
     }
 
     @Override
     public E set(int index, E element) {
-        validateIndex(index);
+        this.validateIndex(index);
         E temp = (E) this.elements[index];
         this.elements[index] = element;
         return temp;
@@ -60,27 +60,44 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        this.validateIndex(index);
+        E temp = (E) this.elements[index];
+
+        if (this.size > 0) {
+            for (int i = index; i < this.size; i++) {
+                this.elements[i] = elements[i + 1];
+            }
+        }
+        size--;
+        return temp;
     }
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
     public int indexOf(E element) {
-        return 0;
+        int index = -1;
+        for (int i = 0; i < this.size; i++) {
+            if (this.elements[i].equals(element)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     @Override
     public boolean contains(E element) {
-        return false;
+        int i = this.indexOf(element);
+        return i != -1;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.size == 0;
     }
 
     @Override

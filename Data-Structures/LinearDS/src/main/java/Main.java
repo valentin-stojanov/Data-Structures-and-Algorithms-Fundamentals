@@ -8,10 +8,12 @@ public class Main {
         strings.add("b");
         strings.add("c");
         strings.add("d");
-//        strings.add("e");
+        strings.add("e");
 
-        strings.add(3, "f");
-        System.out.println();
+//        String remove = strings.remove(0);
+
+//        strings.add(3, "f");
+        System.out.println(strings.indexOf("d"));
 
     }
 }
