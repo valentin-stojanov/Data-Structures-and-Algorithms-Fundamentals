@@ -61,6 +61,9 @@ public class ArrayList<E> implements List<E> {
     @Override
     public E remove(int index) {
         this.validateIndex(index);
+        if (this.size < this.elements.length / 3) {
+            this.elements = shrink();
+        }
         E temp = (E) this.elements[index];
 
         if (this.size > 0) {
@@ -102,7 +105,19 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return this.index < size();
+            }
+
+            @Override
+            public E next() {
+                return get(index++);
+            }
+        };
     }
 
     private void ensureCapacity() {
@@ -115,6 +130,14 @@ public class ArrayList<E> implements List<E> {
             temp[i] = this.elements[i];
         }
         elements = temp;
+    }
+
+    private Object[] shrink() {
+        Object[] temp = new Object[this.elements.length / 2];
+        for (int i = 0; i < this.size; i++) {
+            temp[i] = this.elements[i];
+        }
+        return temp;
     }
 
     private boolean isValidIndex(int index) {
