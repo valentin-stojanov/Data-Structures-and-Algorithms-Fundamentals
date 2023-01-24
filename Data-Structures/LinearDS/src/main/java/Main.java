@@ -1,4 +1,5 @@
 import implementations.ArrayList;
+import implementations.Queue;
 import implementations.Stack;
 
 public class Main {
@@ -18,15 +19,19 @@ public class Main {
 //        strings.remove(0);
 //        System.out.println(strings.indexOf("d"));
 
-        Stack<String> stack = new Stack<>();
-        stack.push("1");
-        stack.push("2");
-        stack.push("3");
-        stack.push("4");
+        Queue<String> queue = new Queue<>();
+        queue.offer("1");
+        queue.offer("2");
+        queue.offer("3");
+        queue.offer("4");
+        queue.offer("5");
+        queue.offer("6");
+        queue.poll();
+        queue.poll();
+        queue.poll();
+        System.out.println();
 
-        for (String s : stack) {
-            System.out.println(s);
-        }
+
 
         System.out.println();
 
