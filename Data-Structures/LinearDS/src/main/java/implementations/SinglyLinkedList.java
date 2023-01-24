@@ -100,6 +100,7 @@ public class SinglyLinkedList<E> implements LinkedList<E> {
         return new Iterator<E>() {
 
             Node<E> current = first;
+
             @Override
             public boolean hasNext() {
                 return current != null;
