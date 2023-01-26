@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DoublyLinkedListTest {
+public class DoublyLinkedListTestJunit4 {
     private DoublyLinkedList<String> list;
 
     @Before

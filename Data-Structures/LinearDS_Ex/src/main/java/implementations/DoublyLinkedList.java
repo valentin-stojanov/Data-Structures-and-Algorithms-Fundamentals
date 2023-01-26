@@ -6,11 +6,13 @@ import java.util.Iterator;
 
 public class DoublyLinkedList<E> implements LinkedList<E> {
     private Node<E> head;
+    private Node<E> tail;
     private int size;
 
     private static class Node<E> {
         private E element;
         private Node<E> next;
+        private Node<E> previous;
 
         public Node(E value) {
             this.element = value;
@@ -18,31 +20,46 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
     }
 
     public DoublyLinkedList() {
+        this.head = this.tail = null;
+        this.size = 0;
     }
 
     @Override
     public void addFirst(E element) {
         Node<E> newNode = new Node<>(element);
-        if (this.head != null) {
-            newNode.next = this.head;
+        if (this.head == null) {
+            this.head = newNode;
+            this.tail = newNode;
+            newNode.previous = null;
+            newNode.next = null;
+        } else {
+//        Link a new Node to the previous one.
+            newNode.previous = this.head;
+//        Make a connection to the newly added node (the next Node).
+            this.head.next = newNode;
+//        Moving the head pointer to the newly added node.
+            this.head = newNode;
         }
-        this.head = newNode;
         this.size++;
     }
 
     @Override
     public void addLast(E element) {
         Node<E> newNode = new Node<>(element);
+
         if (this.head == null) {
             this.head = newNode;
+            this.tail = newNode;
+            newNode.previous = null;
+            newNode.next = null;
         } else {
-            Node<E> current = this.head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = newNode;
+//            Connect the newly added node to current tail.
+            newNode.next = this.tail;
+//            Connect the current tail to the newly added node.
+            this.tail.previous = newNode;
+//            Moving the tail pointer to the newly added node.
+            this.tail = newNode;
         }
-        this.size++;
     }
 
     @Override
@@ -79,7 +96,7 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
             prev = current;
             current = current.next;
         }
-        E element =  current.element;
+        E element = current.element;
         prev.next = null;
         this.size--;
 
