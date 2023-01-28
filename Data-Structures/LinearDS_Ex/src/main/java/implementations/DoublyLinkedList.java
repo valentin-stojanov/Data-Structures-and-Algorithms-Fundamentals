@@ -60,6 +60,7 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
 //            Moving the tail pointer to the newly added node.
             this.tail = newNode;
         }
+        this.size++;
     }
 
     @Override
@@ -68,36 +69,26 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
         E element = this.head.element;
         if (this.size == 1) {
             this.head = null;
+            this.tail = null;
         } else {
-            Node<E> newHead = this.head.next;
+            this.head = this.head.previous;
             this.head.next = null;
-            this.head = newHead;
         }
         this.size--;
         return element;
     }
 
-    private void ensureNotEmpty() {
-        if (this.size == 0) {
-            throw new IllegalStateException("Illegal remove for empty LinkedList");
-        }
-    }
-
     @Override
     public E removeLast() {
         ensureNotEmpty();
+        E element = this.tail.element;
         if (this.size == 1) {
-            return removeFirst();
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.next;
+            this.tail.previous = null;
         }
-
-        Node<E> current = this.head;
-        Node<E> prev = this.head;
-        while (current.next != null) {
-            prev = current;
-            current = current.next;
-        }
-        E element = current.element;
-        prev.next = null;
         this.size--;
 
         return element;
@@ -111,11 +102,8 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
 
     @Override
     public E getLast() {
-        Node<E> current = this.head;
-        while (current.next != null) {
-            current = current.next;
-        }
-        return current.element;
+        ensureNotEmpty();
+        return this.tail.element;
     }
 
     @Override
@@ -146,5 +134,11 @@ public class DoublyLinkedList<E> implements LinkedList<E> {
                 return element;
             }
         };
+    }
+
+    private void ensureNotEmpty() {
+        if (this.size == 0) {
+            throw new IllegalStateException("Illegal remove for empty LinkedList");
+        }
     }
 }

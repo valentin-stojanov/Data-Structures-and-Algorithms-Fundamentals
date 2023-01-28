@@ -3,10 +3,7 @@ package implementations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
-
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,20 +13,17 @@ class DoublyLinkedListTestJunit5 {
 
     @BeforeEach
     void setUp() {
-        try {
-            this.list = new DoublyLinkedList<>();
-            for (int i = 0; i < 100; i++) {
-                list.addLast(String.valueOf(i));
-            }
-        } catch (Exception ignored) {
-            this.list = new DoublyLinkedList<>();
+        this.list = new DoublyLinkedList<>();
+
+        for (int i = 0; i < 10; i++) {
+            list.addLast(String.valueOf(i));
         }
     }
 
     @Test
     void shouldInitializeEmptyList() {
         DoublyLinkedList<String> emptyList = new DoublyLinkedList<>();
-        Assertions.assertEquals( 0, emptyList.size());
+        Assertions.assertEquals(0, emptyList.size());
     }
 
 
@@ -51,7 +45,7 @@ class DoublyLinkedListTestJunit5 {
     }
 
     @Test
-    void addLast_ShouldAddOneElement(){
+    void addLast_ShouldAddOneElement() {
         DoublyLinkedList<String> list = new DoublyLinkedList<>();
 
         list.addFirst("first");
@@ -67,55 +61,82 @@ class DoublyLinkedListTestJunit5 {
     }
 
     @Test
-    void shouldCorrectAddFirstAndLastWhenCombined(){
+    void shouldCorrectAddFirstAndLastWhenCombined() {
         DoublyLinkedList<Integer> numbers = new DoublyLinkedList<>();
 
         for (int i = 0; i < 5; i++) {
-            if (i % 2 != 0){
+            if (i % 2 != 0) {
                 numbers.addFirst(i);
-            }else {
+            } else {
                 numbers.addLast(i);
             }
         }
 
         for (int i = 4; i >= 0; i--) {
-            if (i % 2 == 0){
-               assertEquals(i, numbers.removeLast());
-            }else {
+            if (i % 2 == 0) {
+                assertEquals(i, numbers.removeLast());
+            } else {
                 assertEquals(i, numbers.removeFirst());
             }
         }
+
+        assertEquals(0, numbers.size());
     }
 
     @Test
-    void addLast() {
+    void ShouldAddLastElementMultipleTimeCorrectly() {
+
+        assertEquals("9", this.list.getLast());
+
     }
 
     @Test
-    void removeFirst() {
+    void ShouldRemoveFirstElementMultipleTime() {
+        for (int i = 0; i < 10; i++) {
+            assertEquals(String.valueOf(i), this.list.removeFirst());
+        }
+
+        assertEquals(0, this.list.size());
     }
 
     @Test
-    void removeLast() {
+    void ShouldRemoveLastElementMultipleTime() {
+        for (int i = 9; i >= 0; i--) {
+            assertEquals(String.valueOf(i), this.list.removeLast());
+        }
+
+        assertEquals(0, this.list.size());
     }
 
     @Test
-    void getFirst() {
+    void ShouldReturnFirstElement() {
+        assertEquals("0", this.list.getFirst());
+        assertEquals(10, this.list.size());
     }
 
     @Test
-    void getLast() {
+    void ShouldReturnLastElement() {
+        assertEquals("9", this.list.getLast());
+        assertEquals(10, this.list.size());
     }
 
     @Test
-    void size() {
+    void ShouldReturnNumberOfElements() {
+        assertEquals(10, this.list.size());
     }
 
     @Test
-    void isEmpty() {
+    void ShouldReturnZeroSizeForEmptyCollection() {
+        DoublyLinkedList<Integer> emptyList = new DoublyLinkedList<>();
+        assertEquals(0, emptyList.size());
     }
 
     @Test
-    void iterator() {
+    void ShouldTraversFromHeadToTail() {
+        int currentNumber = 0;
+
+        for (String s : this.list) {
+            assertEquals(s, String.valueOf(currentNumber++));
+        }
     }
 }
