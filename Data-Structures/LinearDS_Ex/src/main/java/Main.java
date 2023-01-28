@@ -1,19 +1,23 @@
+import implementations.ArrayDeque;
 import implementations.DoublyLinkedList;
-import implementations.Queue;
+
+import java.util.Queue;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
 
-        DoublyLinkedList<Integer> numbers = new DoublyLinkedList<>();
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.add(1);
+        deque.add(2);
+        deque.add(3);
+        deque.add(4);
+        deque.add(5);
+        deque.add(6);
 
-        for (int i = 0; i < 5; i++) {
-            if (i % 2 != 0){
-                numbers.addFirst(i);
-            }else {
-                numbers.addLast(i);
-            }
-        }
+        deque.remove(4);
+        deque.trimToSize();
+        System.out.println();
 
-        System.out.println(numbers.removeLast());
     }
 }

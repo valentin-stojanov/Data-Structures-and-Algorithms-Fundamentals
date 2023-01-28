@@ -84,14 +84,14 @@ class DoublyLinkedListTestJunit5 {
     }
 
     @Test
-    void ShouldAddLastElementMultipleTimeCorrectly() {
+    void shouldAddLastElementMultipleTimeCorrectly() {
 
         assertEquals("9", this.list.getLast());
 
     }
 
     @Test
-    void ShouldRemoveFirstElementMultipleTime() {
+    void shouldRemoveFirstElementMultipleTime() {
         for (int i = 0; i < 10; i++) {
             assertEquals(String.valueOf(i), this.list.removeFirst());
         }
@@ -100,7 +100,7 @@ class DoublyLinkedListTestJunit5 {
     }
 
     @Test
-    void ShouldRemoveLastElementMultipleTime() {
+    void shouldRemoveLastElementMultipleTime() {
         for (int i = 9; i >= 0; i--) {
             assertEquals(String.valueOf(i), this.list.removeLast());
         }
@@ -109,30 +109,30 @@ class DoublyLinkedListTestJunit5 {
     }
 
     @Test
-    void ShouldReturnFirstElement() {
+    void shouldReturnFirstElement() {
         assertEquals("0", this.list.getFirst());
         assertEquals(10, this.list.size());
     }
 
     @Test
-    void ShouldReturnLastElement() {
+    void shouldReturnLastElement() {
         assertEquals("9", this.list.getLast());
         assertEquals(10, this.list.size());
     }
 
     @Test
-    void ShouldReturnNumberOfElements() {
+    void shouldReturnNumberOfElements() {
         assertEquals(10, this.list.size());
     }
 
     @Test
-    void ShouldReturnZeroSizeForEmptyCollection() {
+    void shouldReturnZeroSizeForEmptyCollection() {
         DoublyLinkedList<Integer> emptyList = new DoublyLinkedList<>();
         assertEquals(0, emptyList.size());
     }
 
     @Test
-    void ShouldTraversFromHeadToTail() {
+    void shouldTraversFromHeadToTail() {
         int currentNumber = 0;
 
         for (String s : this.list) {
