@@ -1,6 +1,7 @@
 package implementations;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,12 +25,42 @@ class ArrayDequeTest {
     }
 
     @Test
+    void size(){
+        assertEquals(10, this.deque.size());
+    }
+
+    @Test
+    void capacity(){
+        assertEquals(5, this.deque.capacity());
+    }
+
+    @Test
+    void getByIndex(){
+        assertEquals(0, this.deque.get(0));
+        assertEquals(9, this.deque.get(9));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.deque.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> this.deque.get(10));
+    }
+
+
+    @Test
+    @DisplayName("adds an element at the end")
+    void add(){
+        this.deque.add(10);
+        assertEquals(10, this.deque.get(10));
+    }
+
+    @Test
     void shouldAddElementsLikeList(){
         int currentNumber = 0;
         for (Integer num : this.deque) {
             assertEquals(currentNumber++, num);
         }
     }
+
+
+
+
 
     @Test
     void checkForCorrectIndexingOfElements() {
