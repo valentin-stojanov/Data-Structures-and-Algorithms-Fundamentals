@@ -64,13 +64,38 @@ public class ArrayDeque<E> implements Deque<E> {
 
     @Override
     public void insert(int index, E element) {
+        isValidIndex(index);
+        int mid = (this.headIndex + this.tailIndex) >> 1;
+        int realIndex = index + this.tailIndex;
 
+        if (capacity() == 0) {
+            ensureCapacity();
+        } else if (realIndex <= mid) {
+            if (this.tailIndex < 1) {
+                ensureCapacity();
+            }
+
+            for (int i = this.tailIndex; i < realIndex ; i++) {
+                 this.elements[i - 1] = this.elements[i];
+            }
+
+            this.tailIndex--;
+            this.size++;
+            set(index, element);
+
+        } else {
+            if (this.headIndex > this.elements.length - 2){
+                ensureCapacity();
+            }
+
+
+        }
     }
 
     @Override
     public void set(int index, E element) {
         isValidIndex(index);
-        this.elements[index] = element;
+        this.elements[index + this.tailIndex] = element;
     }
 
     @Override
@@ -109,13 +134,13 @@ public class ArrayDeque<E> implements Deque<E> {
         int mid = (this.headIndex + this.tailIndex) >> 1;
         E removedElement = (E) this.elements[realIndex];
 
-        if (realIndex == this.tailIndex){
+        if (realIndex == this.tailIndex) {
             removeFirst();
         } else if (realIndex == this.headIndex) {
             removeLast();
         } else if (realIndex <= mid) {
 
-            for (int i = realIndex; i > this.tailIndex ; i--) {
+            for (int i = realIndex; i > this.tailIndex; i--) {
                 this.elements[i] = this.elements[i - 1];
             }
             this.elements[tailIndex] = null;
@@ -124,7 +149,7 @@ public class ArrayDeque<E> implements Deque<E> {
         } else {
 
             for (int i = realIndex; i < this.headIndex; i++) {
-                this.elements[i] = this.elements[i +1];
+                this.elements[i] = this.elements[i + 1];
             }
             this.elements[headIndex] = null;
             this.headIndex--;
@@ -139,7 +164,7 @@ public class ArrayDeque<E> implements Deque<E> {
         int realIndexOfObject = findRealIndexOfObject(object);
         return realIndexOfObject != -1
                 ? remove(realIndexOfObject - this.tailIndex)
-                :null;
+                : null;
     }
 
     @Override
@@ -171,7 +196,7 @@ public class ArrayDeque<E> implements Deque<E> {
     @Override
     public void trimToSize() {
         Object[] newElements = new Object[this.size];
-        for (int i = this.tailIndex, j =0; i < this.headIndex; i++, j++) {
+        for (int i = this.tailIndex, j = 0; i < this.headIndex; i++, j++) {
             newElements[j] = this.elements[i];
         }
         this.elements = newElements;
@@ -221,7 +246,7 @@ public class ArrayDeque<E> implements Deque<E> {
         }
     }
 
-    private int findRealIndexOfObject(Object object){
+    private int findRealIndexOfObject(Object object) {
         int index = -1;
         for (int i = tailIndex; i < headIndex; i++) {
             if (object.equals(this.elements[i])) {

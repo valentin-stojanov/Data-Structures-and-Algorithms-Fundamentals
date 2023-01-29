@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayDequeTest {
+
     ArrayDeque<Integer> deque = new ArrayDeque<>();
 
     @BeforeEach
@@ -96,6 +97,17 @@ class ArrayDequeTest {
         assertEquals(4, stack.capacity());
     }
 
+    @Test
+    void shouldInsertCorrectAtIndexInLeftHalf() {
+
+        this.deque.insert(3, 13);
+
+        assertEquals(2, this.deque.get(2));
+        assertEquals(13, this.deque.get(3));
+        assertEquals(3, this.deque.get(4));
+        assertEquals(11, this.deque.size());
+        assertEquals(4, this.deque.capacity());
+    }
 
 
 }
