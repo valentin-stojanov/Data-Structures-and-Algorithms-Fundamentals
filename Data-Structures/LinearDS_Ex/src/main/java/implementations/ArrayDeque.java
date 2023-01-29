@@ -68,15 +68,19 @@ public class ArrayDeque<E> implements Deque<E> {
         int mid = (this.headIndex + this.tailIndex) >> 1;
         int realIndex = index + this.tailIndex;
 
-        if (capacity() == 0) {
-            ensureCapacity();
+        if (realIndex == this.tailIndex) {
+            addFirst(element);
+        } else if (realIndex == this.headIndex) {
+            addLast(element);
         } else if (realIndex <= mid) {
             if (this.tailIndex < 1) {
                 ensureCapacity();
+//                Because after resize the new tailIndex is with different value.
+                realIndex = index + this.tailIndex;
             }
 
-            for (int i = this.tailIndex; i < realIndex ; i++) {
-                 this.elements[i - 1] = this.elements[i];
+            for (int i = this.tailIndex; i < realIndex; i++) {
+                this.elements[i - 1] = this.elements[i];
             }
 
             this.tailIndex--;
@@ -84,11 +88,19 @@ public class ArrayDeque<E> implements Deque<E> {
             set(index, element);
 
         } else {
-            if (this.headIndex > this.elements.length - 2){
+            if (this.headIndex > this.elements.length - 2) {
                 ensureCapacity();
+//                Because after resize the new tailIndex is with different value.
+                realIndex = index + this.tailIndex;
             }
 
+            for (int i = this.headIndex; i >= realIndex; i--) {
+                this.elements[i + 1] = this.elements[i];
+            }
 
+            this.headIndex++;
+            this.size++;
+            set(index, element);
         }
     }
 

@@ -17,7 +17,7 @@ class ArrayDequeTest {
     }
 
     @Test
-    void ShouldInitializeEmptyArrayDeque(){
+    void shouldInitializeEmptyArrayDeque(){
         ArrayDeque<Integer> emptySet = new ArrayDeque<>();
         assertEquals(0, emptySet.size());
         assertEquals(7, emptySet.capacity());
@@ -39,7 +39,7 @@ class ArrayDequeTest {
     }
 
     @Test
-    void ShouldRemoveElementAtGivenIndex() {
+    void shouldRemoveElementAtGivenIndex() {
         assertEquals(4, this.deque.remove(4));
         assertEquals(0, this.deque.get(0));
         assertEquals(9, this.deque.get(8));
@@ -107,6 +107,37 @@ class ArrayDequeTest {
         assertEquals(3, this.deque.get(4));
         assertEquals(11, this.deque.size());
         assertEquals(4, this.deque.capacity());
+    }
+
+    @Test
+    void shouldInsertCorrectAtIndexInLeftHalfAfterResize() {
+        this.deque.insert(0, -1);
+        this.deque.insert(0, -2);
+        this.deque.insert(0, -3);
+        this.deque.insert(0, -4);
+        this.deque.insert(0, -5);
+        this.deque.insert(5, 100);
+
+        assertEquals(-5, this.deque.get(0));
+        assertEquals(-1, this.deque.get(4));
+        assertEquals(100, this.deque.get(5));
+        assertEquals(0, this.deque.get(6));
+        assertEquals(9, this.deque.get(15));
+        assertEquals(16, this.deque.size());
+        assertEquals(15, this.deque.capacity());
+    }
+
+    @Test
+    void shouldInsertCorrectAtIndexInRightHalfAfterResize() {
+        this.deque.insert(6, 69);
+
+        assertEquals(0, this.deque.get(0));
+        assertEquals(5, this.deque.get(5));
+        assertEquals(69, this.deque.get(6));
+        assertEquals(6, this.deque.get(7));
+        assertEquals(9, this.deque.get(10));
+        assertEquals(11, this.deque.size());
+        assertEquals(20, this.deque.capacity());
     }
 
 
