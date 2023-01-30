@@ -122,7 +122,7 @@ public class ArrayDeque<E> implements Deque<E> {
 
     @Override
     public E pop() {
-        return this.removeLast();
+        return this.removeFirst();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ArrayDeque<E> implements Deque<E> {
     @Override
     public E removeFirst() {
         E firstElement = (E) this.elements[this.headIndex];
-        this.elements[this.headIndex] = null;
+        this.elements[this.headIndex--] = null;
         this.size--;
         return firstElement;
     }
@@ -190,7 +190,7 @@ public class ArrayDeque<E> implements Deque<E> {
     @Override
     public E removeLast() {
         E lastElement = (E) this.elements[this.tailIndex];
-        this.elements[this.tailIndex] = null;
+        this.elements[this.tailIndex++] = null;
         this.size--;
         return lastElement;
     }

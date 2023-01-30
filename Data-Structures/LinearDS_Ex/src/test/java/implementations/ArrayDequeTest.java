@@ -44,10 +44,58 @@ class ArrayDequeTest {
 
 
     @Test
-    @DisplayName("adds an element at the end")
+    @DisplayName("Add - adds an element at the end")
     void add(){
         this.deque.add(10);
         assertEquals(10, this.deque.get(10));
+        assertEquals(11, this.deque.size());
+        assertEquals(20, this.deque.capacity());
+
+    }
+
+    @Test
+    @DisplayName("AddFirst - adds an element in front of all other elements")
+    void addFirst(){
+        this.deque.addFirst(10);
+        assertEquals(9, this.deque.get(10));
+        assertEquals(11, this.deque.size());
+        assertEquals(4, this.deque.capacity());
+    }
+
+    @Test
+    @DisplayName("AddLast - adds an element after the last one")
+    void addLast(){
+        this.deque.addLast(10);
+        assertEquals(10, this.deque.get(10));
+        assertEquals(11, this.deque.size());
+        assertEquals(20, this.deque.capacity());
+
+    }
+
+    @Test
+    @DisplayName("Offer - adds an element the same way a Queue does")
+    void offer(){
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        queue.offer(1);
+        queue.offer(2);
+        queue.offer(3);
+        assertEquals(1, queue.peek());
+        assertEquals(1, queue.poll());
+        assertEquals(2, queue.poll());
+        assertEquals(3, queue.poll());
+    }
+
+    @Test
+    @DisplayName("Push - adds an element the same way a Stack does")
+    void push(){
+        ArrayDeque<Integer> stackTest = new ArrayDeque<>();
+        stackTest.push(10);
+        stackTest.push(11);
+        stackTest.push(12);
+        assertEquals(12, stackTest.peek());
+        assertEquals(12, stackTest.pop());
+        assertEquals(11, stackTest.pop());
+        assertEquals(10, stackTest.pop());
     }
 
     @Test
