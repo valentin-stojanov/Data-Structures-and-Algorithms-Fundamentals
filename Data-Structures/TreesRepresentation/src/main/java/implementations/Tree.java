@@ -2,8 +2,10 @@ package implementations;
 
 import interfaces.AbstractTree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Tree<E> implements AbstractTree<E> {
 
@@ -17,13 +19,29 @@ public class Tree<E> implements AbstractTree<E> {
 
         for (Tree<E> child : children) {
             this.children.add(child);
-            this.parent = this;
+            child.parent = this;
         }
     }
 
     @Override
     public List<E> orderBfs() {
-        return null;
+        List<E> bfsList = new ArrayList<>();
+        Queue<Tree<E>> queue = new ArrayDeque<>();
+        Tree<E> tree = this;
+
+        queue.offer(tree);
+        while (!queue.isEmpty()){
+
+            Tree<E> currentTree = queue.peek();
+
+            for (Tree<E> child : currentTree.children) {
+                queue.offer(child);
+            }
+
+            bfsList.add(queue.poll().key);
+        }
+
+        return bfsList;
     }
 
     @Override
