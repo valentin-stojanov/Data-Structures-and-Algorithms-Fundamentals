@@ -93,6 +93,18 @@ public class TreeTest {
     }
 
     @Test
+    public void testSwapLeafsInSameChildrenList() {
+        tree.swap(1, 31);
+        Integer[] expected = {7, 19, 21, 14, 31, 12, 1, 23, 6};
+        List<Integer> integers = tree.orderBfs();
+        assertEquals(expected.length, integers.size());
+        int index = 0;
+        for (Integer num : integers) {
+            assertEquals(expected[index++], num);
+        }
+    }
+
+    @Test
     public void testSwapAtDifferentLevels() {
         tree.swap(19, 6);
         Integer[] expected = {7, 6, 21, 14, 23, 19, 1, 12, 31};
