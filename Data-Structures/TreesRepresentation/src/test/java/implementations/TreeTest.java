@@ -107,9 +107,30 @@ public class TreeTest {
     @Test
     public void testSwapParentWithLeaf() {
         tree.swap(19, 31);
-        Integer[] expected = {7, 31, 21, 14, 1, 12, 19, 23, 6};
+        Integer[] expected = {7, 31, 21, 14, 23, 6};
         List<Integer> integers = tree.orderBfs();
         assertEquals(expected.length, integers.size());
+        int index = 0;
+        for (Integer num : integers) {
+            assertEquals(expected[index++], num);
+        }
+    }
+
+    @Test
+    public void testSwapLeafWithRoot() {
+        tree.swap(6, 7);
+        Integer[] expected = {6};
+        List<Integer> integers = tree.orderBfs();
+        assertEquals(1, integers.size());
+
+    }
+
+    @Test
+    public void testSwapTreeWithRoot() {
+        tree.swap(19, 7);
+        Integer[] expected = {19,1,12,31};
+        List<Integer> integers = tree.orderBfs();
+        assertEquals(4, integers.size());
         int index = 0;
         for (Integer num : integers) {
             assertEquals(expected[index++], num);

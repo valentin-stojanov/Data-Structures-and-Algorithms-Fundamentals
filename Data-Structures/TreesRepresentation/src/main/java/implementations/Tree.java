@@ -130,6 +130,22 @@ public class Tree<E> implements AbstractTree<E> {
             throw new IllegalArgumentException();
         }
 
+//        Check for root element if true -> secondNode becomes the root.
+        if (firstNode.parent == null){
+            firstNode = secondNode;
+            this.key = firstNode.key;
+            this.children = firstNode.children;
+            return;
+        }
+
+//        Check for root element if true -> firstNode becomes the root.
+        if (secondNode.parent == null){
+            secondNode = firstNode;
+            this.key = secondNode.key;
+            this.children = secondNode.children;
+            return;
+        }
+
         Tree<E> firstNodeParent = firstNode.parent;
         int firstParentIndexOfChild = firstNodeParent.children.indexOf(firstNode);
         firstNode.parent = null;
@@ -144,10 +160,23 @@ public class Tree<E> implements AbstractTree<E> {
 
         firstNodeParent.children.remove(firstParentIndexOfChild);
         firstNodeParent.children.add(firstParentIndexOfChild, secondNode);
+        secondNode.parent = firstNodeParent;
 
         secondNodeParent.children.remove(secondParentIndexOfChild);
         secondNodeParent.children.add(secondParentIndexOfChild, tempNode);
+        firstNode.parent = secondNodeParent;
 
+//        Tree<E> firstParent = firstNode.parent;
+//        Tree<E> secondParent = secondNode.parent;
+//
+//        firstNode.parent = secondParent;
+//        secondNode.parent = firstParent;
+//
+//        int firstIndex = firstParent.children.indexOf(firstNode);
+//        int secondIndex = secondParent.children.indexOf(secondNode);
+//
+//        firstParent.children.set(firstIndex,secondNode);
+//        secondParent.children.set(secondIndex, firstNode);
 
     }
 }
