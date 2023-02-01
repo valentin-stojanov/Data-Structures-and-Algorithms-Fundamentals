@@ -130,41 +130,29 @@ public class Tree<E> implements AbstractTree<E> {
             throw new IllegalArgumentException();
         }
 
-//        Check for root element if true -> secondNode becomes the root.
-        if (firstNode.parent == null){
-            firstNode = secondNode;
-            this.key = firstNode.key;
-            this.children = firstNode.children;
+        if (isRoot(firstNode)){
+            changeRootWith(secondNode);
             return;
         }
 
-//        Check for root element if true -> firstNode becomes the root.
-        if (secondNode.parent == null){
-            secondNode = firstNode;
-            this.key = secondNode.key;
-            this.children = secondNode.children;
+        if (isRoot(secondNode)){
+            changeRootWith(firstNode);
             return;
         }
 
-        Tree<E> firstNodeParent = firstNode.parent;
-        int firstParentIndexOfChild = firstNodeParent.children.indexOf(firstNode);
-        firstNode.parent = null;
+        Tree<E> parentOfFirstNode = firstNode.parent;
+        int firstNodeIndexInParentChildren = parentOfFirstNode.children.indexOf(firstNode);
 
-        Tree<E> secondNodeParent = secondNode.parent;
-        int secondParentIndexOfChild = secondNodeParent.children.indexOf(secondNode);
-        secondNode.parent = null;
+        Tree<E> parentOfSecondNode = secondNode.parent;
+        int secondNodeIndexInParentChildren = parentOfSecondNode.children.indexOf(secondNode);
 
+        parentOfFirstNode.children.remove(firstNodeIndexInParentChildren);
+        parentOfFirstNode.children.add(firstNodeIndexInParentChildren, secondNode);
+        secondNode.parent = parentOfFirstNode;
 
-        Tree<E> tempNode = new Tree<>(firstNode.key);
-        tempNode.children.addAll(firstNode.children);
-
-        firstNodeParent.children.remove(firstParentIndexOfChild);
-        firstNodeParent.children.add(firstParentIndexOfChild, secondNode);
-        secondNode.parent = firstNodeParent;
-
-        secondNodeParent.children.remove(secondParentIndexOfChild);
-        secondNodeParent.children.add(secondParentIndexOfChild, tempNode);
-        firstNode.parent = secondNodeParent;
+        parentOfSecondNode.children.remove(secondNodeIndexInParentChildren);
+        parentOfSecondNode.children.add(secondNodeIndexInParentChildren, firstNode);
+        firstNode.parent = parentOfSecondNode;
 
 //        Tree<E> firstParent = firstNode.parent;
 //        Tree<E> secondParent = secondNode.parent;
@@ -178,6 +166,15 @@ public class Tree<E> implements AbstractTree<E> {
 //        firstParent.children.set(firstIndex,secondNode);
 //        secondParent.children.set(secondIndex, firstNode);
 
+    }
+
+    private boolean isRoot(Tree<E> firstNode) {
+        return firstNode.parent == null;
+    }
+
+    private void changeRootWith(Tree<E> secondNode) {
+        this.key = secondNode.key;
+        this.children = secondNode.children;
     }
 }
 
