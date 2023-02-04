@@ -33,6 +33,31 @@ public class TheMatrixTest {
     }
 
     @Test
+    public void testMatrixToOutputString() {
+        char[][] matrix = {
+                {'a', 'a', 'a'},
+                {'a', 'a', 'a'},
+                {'a', 'b', 'a'},
+                {'a', 'b', 'a'},
+                {'a', 'b', 'a'}
+        };
+        char fillChar = 'x';
+        int startRow = 0;
+        int startCol = 0;
+
+        TheMatrix theMatrix = new TheMatrix(matrix, fillChar, startRow, startCol);
+
+
+        String str = theMatrix.toOutputString();
+        assertEquals(
+                "aaa\r\n" +
+                        "aaa\r\n" +
+                        "aba\r\n" +
+                        "aba\r\n" +
+                        "aba", str);
+    }
+
+    @Test
     public void testZeroTestTwo() {
         char[][] matrix = {
                 {'a', 'a', 'a',},
