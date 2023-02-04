@@ -16,7 +16,8 @@ public class TheMatrix {
     }
 
     public void solve() {
-        dfsSolution();
+//        dfsSolution();
+        dfs2(this.startRow, this.startCol);
     }
 
     public String toOutputString() {
@@ -33,9 +34,6 @@ public class TheMatrix {
 
     private void dfsSolution() {
         if (!isInBounds(this.startRow, this.startCol)) {
-            return;
-        }
-        if (this.matrix[this.startRow][this.startCol] != this.startChar) {
             return;
         }
 
@@ -68,5 +66,21 @@ public class TheMatrix {
 
     private boolean isInBounds(int currentRow, int currentCol) {
         return (0 <= currentRow && currentRow < this.matrix.length) && (0 <= currentCol && currentCol < this.matrix[currentRow].length);
+    }
+
+    private void dfs2(int row, int col) {
+        if (!isInBounds(row, col) || this.matrix[row][col] != this.startChar){
+            return;
+        }
+
+        this.matrix[row][col] = this.fillChar;
+
+        System.out.println(this.toOutputString());
+        System.out.println("-----");
+
+        this.dfs2(row + 1, col);
+        this.dfs2(row, col + 1);
+        this.dfs2(row - 1, col);
+        this.dfs2(row, col -1);
     }
 }
