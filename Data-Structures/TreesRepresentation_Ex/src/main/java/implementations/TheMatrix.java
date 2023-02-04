@@ -97,25 +97,25 @@ public class TheMatrix {
         while (queue.size() > 0) {
 
             int[] currentCoordinates = queue.poll();
-            int currRoll = currentCoordinates[0];
+            int currRow = currentCoordinates[0];
             int currCol = currentCoordinates[1];
 
-            this.matrix[currRoll][currCol] = this.fillChar;
+            this.matrix[currRow][currCol] = this.fillChar;
 
-            System.out.println(this.toOutputString());
-            System.out.println("-----");
+//            System.out.println(this.toOutputString());
+//            System.out.println("-----");
 
-            if (isInBounds(currRoll + 1, currCol) && this.matrix[currRoll + 1][currCol] == this.startChar) {
-                queue.offer(new int[]{currRoll + 1, currCol});
+            if (isInBounds(currRow + 1, currCol) && this.matrix[currRow + 1][currCol] == this.startChar) {
+                queue.offer(new int[]{currRow + 1, currCol});
             }
-            if (isInBounds(currRoll, currCol + 1) && this.matrix[currRoll][currCol + 1] == this.startChar) {
-                queue.offer(new int[]{currRoll, currCol + 1});
+            if (isInBounds(currRow, currCol + 1) && this.matrix[currRow][currCol + 1] == this.startChar) {
+                queue.offer(new int[]{currRow, currCol + 1});
             }
-            if (isInBounds(currRoll - 1, currCol) && this.matrix[currRoll - 1][currCol] == this.startChar) {
-                queue.offer(new int[]{currRoll - 1, currCol});
+            if (isInBounds(currRow - 1, currCol) && this.matrix[currRow - 1][currCol] == this.startChar) {
+                queue.offer(new int[]{currRow - 1, currCol});
             }
-            if (isInBounds(currRoll, currCol - 1) && this.matrix[currRoll][currCol - 1] == this.startChar) {
-                queue.offer(new int[]{currRoll, currCol - 1});
+            if (isInBounds(currRow, currCol - 1) && this.matrix[currRow][currCol - 1] == this.startChar) {
+                queue.offer(new int[]{currRow, currCol - 1});
             }
         }
     }
