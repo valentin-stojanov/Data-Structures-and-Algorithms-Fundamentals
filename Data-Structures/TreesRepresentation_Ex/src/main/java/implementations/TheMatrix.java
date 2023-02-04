@@ -1,5 +1,8 @@
 package implementations;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class TheMatrix {
     private final char[][] matrix;
     private final char fillChar;
@@ -16,8 +19,9 @@ public class TheMatrix {
     }
 
     public void solve() {
+        bfsSolution(this.startRow, this.startCol);
 //        dfsSolution();
-        dfs2(this.startRow, this.startCol);
+//        dfs2(this.startRow, this.startCol);
     }
 
     public String toOutputString() {
@@ -69,7 +73,7 @@ public class TheMatrix {
     }
 
     private void dfs2(int row, int col) {
-        if (!isInBounds(row, col) || this.matrix[row][col] != this.startChar){
+        if (!isInBounds(row, col) || this.matrix[row][col] != this.startChar) {
             return;
         }
 
@@ -81,6 +85,38 @@ public class TheMatrix {
         this.dfs2(row + 1, col);
         this.dfs2(row, col + 1);
         this.dfs2(row - 1, col);
-        this.dfs2(row, col -1);
+        this.dfs2(row, col - 1);
+    }
+
+    private void bfsSolution(int row, int col) {
+        int[] coordinates = {row, col};
+        Deque<int[]> queue = new ArrayDeque<>();
+
+        queue.offer(coordinates);
+
+        while (queue.size() > 0) {
+
+            int[] currentCoordinates = queue.poll();
+            int currRoll = currentCoordinates[0];
+            int currCol = currentCoordinates[1];
+
+            this.matrix[currRoll][currCol] = this.fillChar;
+
+            System.out.println(this.toOutputString());
+            System.out.println("-----");
+
+            if (isInBounds(currRoll + 1, currCol) && this.matrix[currRoll + 1][currCol] == this.startChar) {
+                queue.offer(new int[]{currRoll + 1, currCol});
+            }
+            if (isInBounds(currRoll, currCol + 1) && this.matrix[currRoll][currCol + 1] == this.startChar) {
+                queue.offer(new int[]{currRoll, currCol + 1});
+            }
+            if (isInBounds(currRoll - 1, currCol) && this.matrix[currRoll - 1][currCol] == this.startChar) {
+                queue.offer(new int[]{currRoll - 1, currCol});
+            }
+            if (isInBounds(currRoll, currCol - 1) && this.matrix[currRoll][currCol - 1] == this.startChar) {
+                queue.offer(new int[]{currRoll, currCol - 1});
+            }
+        }
     }
 }
