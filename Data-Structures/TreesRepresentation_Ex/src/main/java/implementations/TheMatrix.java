@@ -100,6 +100,7 @@ public class TheMatrix {
             int currRow = currentCoordinates[0];
             int currCol = currentCoordinates[1];
 
+
             this.matrix[currRow][currCol] = this.fillChar;
 
 //            System.out.println(this.toOutputString());

@@ -161,4 +161,30 @@ public class TheMatrixTest {
                         "z1zw1z\r\n" +
                         "zzzzzz", str);
     }
+
+    @Test
+    public void testZeroTestFiveStartAt32() {
+        char[][] matrix = {
+                {'o', '1', 'o', 'o', '1', 'o'},
+                {'o', '1', 'o', 'o', '1', 'o'},
+                {'o', '1', '1', '1', '1', 'o'},
+                {'o', '1', 'o', 'w', '1', 'o'},
+                {'o', 'o', 'o', 'o', 'o', 'o'}
+        };
+        char fillChar = 'z';
+        int startRow = 3;
+        int startCol = 2;
+
+        TheMatrix theMatrix = new TheMatrix(matrix, fillChar, startRow, startCol);
+
+        theMatrix.solve();
+
+        String str = theMatrix.toOutputString();
+        assertEquals(
+                "z1oo1z\r\n" +
+                        "z1oo1z\r\n" +
+                        "z1111z\r\n" +
+                        "z1zw1z\r\n" +
+                        "zzzzzz", str);
+    }
 }
