@@ -64,14 +64,16 @@ public class FolderScanner {
     private static void getFiles (File folder, List<File> listOfFiles){
         File[] currentFiles = folder.listFiles();
 
-        if (currentFiles != null) {
-            for (File currentFile : currentFiles) {
-                if (!currentFile.isDirectory()){
-                    listOfFiles.add(currentFile);
-                }else {
-                    String folderName = currentFile.getName();
-                    getFiles(new File((folder + "\\" + folderName)), listOfFiles);
-                }
+        if (currentFiles == null) {
+            return;
+        }
+
+        for (File currentFile : currentFiles) {
+            if (!currentFile.isDirectory()){
+                listOfFiles.add(currentFile);
+            }else {
+                String folderName = currentFile.getName();
+                getFiles(new File((folder + "\\" + folderName)), listOfFiles);
             }
         }
     }
