@@ -33,6 +33,8 @@ public class FolderScanner {
                             .append(files.get(i).getName())
                             .append(" -->[")
                             .append(files.get(i).getParentFile())
+                            .append("\\")
+                            .append(files.get(i).getName())
                             .append("]")
                             .append("\r\n");
                 }
