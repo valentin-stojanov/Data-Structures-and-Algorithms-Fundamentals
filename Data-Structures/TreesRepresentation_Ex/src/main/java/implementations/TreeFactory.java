@@ -14,7 +14,6 @@ public class TreeFactory {
     }
 
     public Tree<Integer> createTreeFromStrings(String[] input) {
-
         for (String tuple : input) {
             int[] nodeChild = Arrays.stream(tuple.split("\\s+"))
                     .mapToInt(Integer::parseInt)
@@ -24,12 +23,6 @@ public class TreeFactory {
             Tree<Integer> childNode = createNodeByKey(nodeChild[1]);
 
             addEdge(parentNode, childNode);
-
-            this.nodesByKeys.putIfAbsent(nodeChild[0], parentNode);
-            this.nodesByKeys.putIfAbsent(nodeChild[1], childNode);
-
-            nodesByKeys.get(nodeChild[1]).setParent(this.nodesByKeys.get(nodeChild[0]));
-
         }
 
         return this.getRoot();
@@ -44,11 +37,16 @@ public class TreeFactory {
         return null;
     }
 
-    public Tree<Integer> createNodeByKey(int key) {
-        return new Tree<>(key);
+    private Tree<Integer> createNodeByKey(int key) {
+        Tree<Integer> tree = this.nodesByKeys.putIfAbsent(key, new Tree<>(key));
+
+        if (tree == null /* when the tree is created for the first time*/) {
+            return this.nodesByKeys.get(key);
+        }
+        return tree;
     }
 
-    public void addEdge(Tree<Integer> parent, Tree<Integer> child) {
+    private void addEdge(Tree<Integer> parent, Tree<Integer> child) {
         child.setParent(parent);
     }
 }
