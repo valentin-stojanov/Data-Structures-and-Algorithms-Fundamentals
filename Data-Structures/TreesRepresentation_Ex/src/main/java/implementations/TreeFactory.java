@@ -1,10 +1,8 @@
 package implementations;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class TreeFactory {
     private Map<Integer, Tree<Integer>> nodesByKeys;
@@ -23,10 +21,12 @@ public class TreeFactory {
             Tree<Integer> childNode = createNodeByKey(nodeChild[1]);
 
             addEdge(parentNode, childNode);
+            parentNode.addChild(childNode);
         }
 
         return this.getRoot();
     }
+
 
     private Tree<Integer> getRoot() {
         for (Tree<Integer> node : nodesByKeys.values()) {

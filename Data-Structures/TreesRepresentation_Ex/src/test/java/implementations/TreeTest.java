@@ -124,6 +124,27 @@ public class TreeTest {
     }
 
     @Test
+    public void testDeepestLeftmostNodeSecondTest() {
+        String[] input = {
+                "7 19",
+                "7 21",
+                "7 14",
+                "21 1",
+                "21 12",
+                "21 31",
+                "14 23",
+                "14 6"
+        };
+
+        TreeFactory treeFactory = new TreeFactory();
+        Tree<Integer> tree = treeFactory.createTreeFromStrings(input);
+
+        Tree<Integer> deepestLeftmostNode = tree.getDeepestLeftmostNode();
+
+        assertEquals(Integer.valueOf(1), deepestLeftmostNode.getKey());
+    }
+
+    @Test
     public void testLongestPath() {
         String[] input = {
                 "7 19",
