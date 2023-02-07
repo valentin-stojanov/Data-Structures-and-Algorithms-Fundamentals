@@ -40,24 +40,16 @@ public class Tree<E> implements AbstractTree<E> {
     public String getAsString() {
         StringBuilder builder = new StringBuilder();
 
-        dfsTravers(this, builder, -1);
+        dfsTravers(this, builder, 0);
         System.out.println();
         return builder.toString().trim();
     }
 
     private void dfsTravers(Tree<E> tree, StringBuilder builder, int level) {
-        if (tree.children.size() == 0) {
-//            builder.append(System.lineSeparator()).append("  ".repeat(level + 1)).append(tree.key); /*can be used after Java 11 */
-            builder.append(System.lineSeparator()).append(stringRepeat("  ", level + 1)).append(tree.key);
-            return;
-        }else {
-            level++;
-        }
-
-//        builder.append(System.lineSeparator()).append("  ".repeat(level)).append(tree.key); /*can be used after Java 11 */
         builder.append(System.lineSeparator()).append(stringRepeat("  ", level)).append(tree.key);
+
         for (Tree<E> child : tree.children) {
-            dfsTravers(child, builder, level);
+            dfsTravers(child, builder, level + 1);
         }
     }
 
