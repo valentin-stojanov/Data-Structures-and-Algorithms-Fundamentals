@@ -73,7 +73,7 @@ public class Tree<E> implements AbstractTree<E> {
 
     @Override
     public Tree<E> getDeepestLeftmostNode() {
-        List<Tree<E>> allNodes = getAllNodes();
+        List<Tree<E>> allNodes = getAllNodes(this);
         Tree<E> deepestLeftmostNode = null;
         int deepestNodeDeep = -1;
 
@@ -91,19 +91,26 @@ public class Tree<E> implements AbstractTree<E> {
     @Override
     public List<E> getLongestPath() {
         Tree<E> deepestLeftmostNode = this.getDeepestLeftmostNode();
-        Deque<Tree<E>> stack = findPathFromNode(deepestLeftmostNode);
-        List<E> path = new ArrayList<>();
-
-        while (stack.size() > 0){
-            path.add(stack.pop().getKey());
-        }
+        List<Tree<E>> pathFromNodes = findPathFromNode(deepestLeftmostNode);
+        List<E> path = getPathFromPathFromNodes(pathFromNodes);
 
         return path;
     }
 
     @Override
     public List<List<E>> pathsWithGivenSum(int sum) {
-        return null;
+        List<Tree<E>> allNodes = getAllNodes(this);
+        List<List<E>> paths = new ArrayList<>();
+
+        for (Tree<E> node : allNodes) {
+            int currentSum = findSumOfPath(node);
+            if (currentSum == sum){
+                List<Tree<E>> currentNodePath = findPathFromNode(node);
+                List<E> currentPath = getPathFromPathFromNodes(currentNodePath);
+                paths.add(currentPath);
+            }
+        }
+        return paths;
     }
 
     @Override
@@ -166,12 +173,12 @@ public class Tree<E> implements AbstractTree<E> {
         }
         return leafs;
     }
-    private List<Tree<E>> getAllNodes() {
+    private List<Tree<E>> getAllNodes(Tree<E> tree) {
         List<Tree<E>> nodes = new ArrayList<>();
-        nodes.add(this);
+        nodes.add(tree);
         Deque<Tree<E>> queue = new ArrayDeque<>();
 
-        queue.offer(this);
+        queue.offer(tree);
         while (queue.size() > 0) {
             Tree<E> currentTree = queue.poll();
             for (Tree<E> child : currentTree.children) {
@@ -183,26 +190,54 @@ public class Tree<E> implements AbstractTree<E> {
         }
         return nodes;
     }
-    private int findDeep(Tree<E> tree) {
+
+    private int findDeep(Tree<E> node) {
         int deep = 0;
-        while (tree.parent != null) {
+        while (node.parent != null) {
             deep++;
-            tree = tree.parent;
+            node = node.parent;
         }
         return deep;
     }
 
-    private Deque<Tree<E>> findPathFromNode(Tree<E> deepestLeftmostNode) {
-        Deque<Tree<E>> pathStack = new ArrayDeque<>();
-        Tree<E> currentNode = deepestLeftmostNode;
+    private List<Tree<E>> findPathFromNode(Tree<E> node) {
+        List<Tree<E>> path = new ArrayList<>();
+        Tree<E> currentNode = node;
 
-        while (currentNode.parent != null){
-            pathStack.push(currentNode);
+        while (currentNode.parent != null) {
+            path.add(currentNode);
             currentNode = currentNode.parent;
         }
-        pathStack.push(currentNode);
+        path.add(currentNode);
 
-        return pathStack;
+        return path;
+    }
+
+    private int findSumOfSubtree(Tree<E> tree) {
+        List<Tree<E>> treeNodes = getAllNodes(tree);
+        int sum = 0;
+        for (Tree<E> treeNode : treeNodes) {
+            sum += (int) treeNode.key;
+        }
+        return sum;
+    }
+
+    private List<E> getPathFromPathFromNodes(List<Tree<E>> pathFromNodes){
+        List<E> path = new ArrayList<>();
+
+        for (int i = pathFromNodes.size() - 1; i >= 0 ; i--) {
+            path.add(pathFromNodes.get(i).key);
+        }
+        return path;
+    }
+
+    private int findSumOfPath(Tree<E> node) {
+        List<Tree<E>> pathFromNode = findPathFromNode(node);
+        int sum = 0;
+        for (Tree<E> pathNode : pathFromNode) {
+            sum += (int) pathNode.key;
+        }
+        return sum;
     }
 }
 
