@@ -45,25 +45,12 @@ public class Tree<E> implements AbstractTree<E> {
         return builder.toString().trim();
     }
 
-    private void dfsTravers(Tree<E> tree, StringBuilder builder, int level) {
-        builder.append(System.lineSeparator()).append(stringRepeat("  ", level)).append(tree.key);
-
-        for (Tree<E> child : tree.children) {
-            dfsTravers(child, builder, level + 1);
-        }
-    }
-
-    private String stringRepeat(String str, int n) {
-        StringBuilder newStr = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            newStr.append(str);
-        }
-        return newStr.toString();
-    }
-
     @Override
     public List<E> getLeafKeys() {
-        return null;
+        List<E> leafs = new ArrayList<>();
+        findLeafsDfs(this, leafs);
+
+        return leafs;
     }
 
     @Override
@@ -89,6 +76,32 @@ public class Tree<E> implements AbstractTree<E> {
     @Override
     public List<Tree<E>> subTreesWithGivenSum(int sum) {
         return null;
+    }
+
+    private void dfsTravers(Tree<E> tree, StringBuilder builder, int level) {
+        builder.append(System.lineSeparator()).append(stringRepeat("  ", level)).append(tree.key);
+
+        for (Tree<E> child : tree.children) {
+            dfsTravers(child, builder, level + 1);
+        }
+    }
+
+    private String stringRepeat(String str, int n) {
+        StringBuilder newStr = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            newStr.append(str);
+        }
+        return newStr.toString();
+    }
+
+    private void findLeafsDfs(Tree<E> tree, List<E> leafs) {
+        if (tree.children.size() == 0) {
+            leafs.add(tree.key);
+        }else {
+            for (Tree<E> child : tree.children) {
+                findLeafsDfs(child, leafs);
+            }
+        }
     }
 }
 
