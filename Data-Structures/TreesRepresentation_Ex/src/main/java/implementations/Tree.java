@@ -3,7 +3,9 @@ package implementations;
 import interfaces.AbstractTree;
 
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Tree<E> implements AbstractTree<E> {
@@ -47,9 +49,28 @@ public class Tree<E> implements AbstractTree<E> {
 
     @Override
     public List<E> getLeafKeys() {
-        List<E> leafs = new ArrayList<>();
-        findLeafsDfs(this, leafs);
+//        List<E> leafs = new ArrayList<>();
+//        findLeafsDfs(this, leafs);
 
+        return findLeafsBfs(this);
+    }
+
+    private List<E> findLeafsBfs(Tree<E> tree) {
+        List<E> leafs = new ArrayList<>();
+        Deque<Tree<E>> queue = new ArrayDeque<>();
+        queue.offer(tree);
+
+        while (queue.size() > 0) {
+            Tree<E> currentTree = queue.poll();
+            for (Tree<E> child : currentTree.children) {
+                if (child.children.size() > 0) {
+                    queue.offer(child);
+                } else {
+                    leafs.add(child.key);
+                }
+            }
+
+        }
         return leafs;
     }
 
@@ -97,7 +118,7 @@ public class Tree<E> implements AbstractTree<E> {
     private void findLeafsDfs(Tree<E> tree, List<E> leafs) {
         if (tree.children.size() == 0) {
             leafs.add(tree.key);
-        }else {
+        } else {
             for (Tree<E> child : tree.children) {
                 findLeafsDfs(child, leafs);
             }
