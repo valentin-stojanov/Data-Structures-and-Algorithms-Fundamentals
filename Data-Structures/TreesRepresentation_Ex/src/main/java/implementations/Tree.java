@@ -3,10 +3,7 @@ package implementations;
 import interfaces.AbstractTree;
 
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class Tree<E> implements AbstractTree<E> {
     private E key;
@@ -64,7 +61,7 @@ public class Tree<E> implements AbstractTree<E> {
         while (queue.size() > 0) {
             Tree<E> currentTree = queue.poll();
             for (Tree<E> child : currentTree.children) {
-                if (isMiddleNode(child)){
+                if (isMiddleNode(child)) {
                     middleKeys.add(child.key);
                 } else {
                     queue.offer(child);
@@ -76,12 +73,32 @@ public class Tree<E> implements AbstractTree<E> {
 
     @Override
     public Tree<E> getDeepestLeftmostNode() {
-        return null;
+        List<Tree<E>> allNodes = getAllNodes();
+        Tree<E> deepestLeftmostNode = null;
+        int deepestNodeDeep = -1;
+
+        for (int i = 0; i < allNodes.size(); i++) {
+            Tree<E> currentNode = allNodes.get(i);
+            int currentDeep = findDeep(currentNode);
+            if (currentDeep > deepestNodeDeep) {
+                deepestLeftmostNode = currentNode;
+                deepestNodeDeep = currentDeep;
+            }
+        }
+        return deepestLeftmostNode;
     }
 
     @Override
     public List<E> getLongestPath() {
-        return null;
+        Tree<E> deepestLeftmostNode = this.getDeepestLeftmostNode();
+        Deque<Tree<E>> stack = findPathFromNode(deepestLeftmostNode);
+        List<E> path = new ArrayList<>();
+
+        while (stack.size() > 0){
+            path.add(stack.pop().getKey());
+        }
+
+        return path;
     }
 
     @Override
@@ -120,12 +137,15 @@ public class Tree<E> implements AbstractTree<E> {
         }
     }
 
+
+    //     An internal node (also known as an inner node, inode for short, or branch node) is any node of a tree that has child nodes.(https://en.wikipedia.org/wiki/Tree_(data_structure))
     private boolean isMiddleNode(Tree<E> node) {
-        return node.parent != null && node.children.size() > 0;
+        return !isLeaf(node);
     }
 
-    private boolean isLeaf(Tree<E> child) {
-        return child.children.size() == 0;
+    //    An external node (also known as an outer node, leaf node, or terminal node) is any node that does not have child nodes (https://en.wikipedia.org/wiki/Tree_(data_structure))
+    private boolean isLeaf(Tree<E> node) {
+        return node.children.size() == 0;
     }
 
     private List<E> findLeafsBfs(Tree<E> tree) {
@@ -145,6 +165,44 @@ public class Tree<E> implements AbstractTree<E> {
 
         }
         return leafs;
+    }
+    private List<Tree<E>> getAllNodes() {
+        List<Tree<E>> nodes = new ArrayList<>();
+        nodes.add(this);
+        Deque<Tree<E>> queue = new ArrayDeque<>();
+
+        queue.offer(this);
+        while (queue.size() > 0) {
+            Tree<E> currentTree = queue.poll();
+            for (Tree<E> child : currentTree.children) {
+                nodes.add(child);
+                if (!isLeaf(child)) {
+                    queue.offer(child);
+                }
+            }
+        }
+        return nodes;
+    }
+    private int findDeep(Tree<E> tree) {
+        int deep = 0;
+        while (tree.parent != null) {
+            deep++;
+            tree = tree.parent;
+        }
+        return deep;
+    }
+
+    private Deque<Tree<E>> findPathFromNode(Tree<E> deepestLeftmostNode) {
+        Deque<Tree<E>> pathStack = new ArrayDeque<>();
+        Tree<E> currentNode = deepestLeftmostNode;
+
+        while (currentNode.parent != null){
+            pathStack.push(currentNode);
+            currentNode = currentNode.parent;
+        }
+        pathStack.push(currentNode);
+
+        return pathStack;
     }
 }
 
