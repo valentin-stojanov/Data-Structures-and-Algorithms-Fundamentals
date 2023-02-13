@@ -104,7 +104,7 @@ public class Tree<E> implements AbstractTree<E> {
 
         for (Tree<E> node : allNodes) {
             int currentSum = findSumOfPath(node);
-            if (currentSum == sum){
+            if (currentSum == sum) {
                 List<Tree<E>> currentNodePath = findPathFromNode(node);
                 List<E> currentPath = getPathFromPathFromNodes(currentNodePath);
                 paths.add(currentPath);
@@ -115,7 +115,16 @@ public class Tree<E> implements AbstractTree<E> {
 
     @Override
     public List<Tree<E>> subTreesWithGivenSum(int sum) {
-        return null;
+        List<Tree<E>> allNodes = getAllNodes(this);
+        List<Tree<E>> trees = new ArrayList<>();
+
+        for (Tree<E> node : allNodes) {
+            int sumOfSubtree = findSumOfSubtree(node);
+            if (sumOfSubtree == sum) {
+                trees.add(node);
+            }
+        }
+        return trees;
     }
 
     private void dfsTravers(Tree<E> tree, StringBuilder builder, int level) {
@@ -173,6 +182,7 @@ public class Tree<E> implements AbstractTree<E> {
         }
         return leafs;
     }
+
     private List<Tree<E>> getAllNodes(Tree<E> tree) {
         List<Tree<E>> nodes = new ArrayList<>();
         nodes.add(tree);
@@ -222,10 +232,10 @@ public class Tree<E> implements AbstractTree<E> {
         return sum;
     }
 
-    private List<E> getPathFromPathFromNodes(List<Tree<E>> pathFromNodes){
+    private List<E> getPathFromPathFromNodes(List<Tree<E>> pathFromNodes) {
         List<E> path = new ArrayList<>();
 
-        for (int i = pathFromNodes.size() - 1; i >= 0 ; i--) {
+        for (int i = pathFromNodes.size() - 1; i >= 0; i--) {
             path.add(pathFromNodes.get(i).key);
         }
         return path;
