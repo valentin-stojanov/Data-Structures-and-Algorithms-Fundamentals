@@ -55,28 +55,23 @@ public class Tree<E> implements AbstractTree<E> {
         return findLeafsBfs(this);
     }
 
-    private List<E> findLeafsBfs(Tree<E> tree) {
-        List<E> leafs = new ArrayList<>();
+    @Override
+    public List<E> getMiddleKeys() {
+        List<E> middleKeys = new ArrayList<>();
         Deque<Tree<E>> queue = new ArrayDeque<>();
-        queue.offer(tree);
+        queue.offer(this);
 
         while (queue.size() > 0) {
             Tree<E> currentTree = queue.poll();
             for (Tree<E> child : currentTree.children) {
-                if (child.children.size() > 0) {
-                    queue.offer(child);
+                if (isMiddleNode(child)){
+                    middleKeys.add(child.key);
                 } else {
-                    leafs.add(child.key);
+                    queue.offer(child);
                 }
             }
-
         }
-        return leafs;
-    }
-
-    @Override
-    public List<E> getMiddleKeys() {
-        return null;
+        return middleKeys;
     }
 
     @Override
@@ -116,13 +111,40 @@ public class Tree<E> implements AbstractTree<E> {
     }
 
     private void findLeafsDfs(Tree<E> tree, List<E> leafs) {
-        if (tree.children.size() == 0) {
+        if (isLeaf(tree)) {
             leafs.add(tree.key);
         } else {
             for (Tree<E> child : tree.children) {
                 findLeafsDfs(child, leafs);
             }
         }
+    }
+
+    private boolean isMiddleNode(Tree<E> node) {
+        return node.parent != null && node.children.size() > 0;
+    }
+
+    private boolean isLeaf(Tree<E> child) {
+        return child.children.size() == 0;
+    }
+
+    private List<E> findLeafsBfs(Tree<E> tree) {
+        List<E> leafs = new ArrayList<>();
+        Deque<Tree<E>> queue = new ArrayDeque<>();
+        queue.offer(tree);
+
+        while (queue.size() > 0) {
+            Tree<E> currentTree = queue.poll();
+            for (Tree<E> child : currentTree.children) {
+                if (isLeaf(child)) {
+                    leafs.add(child.key);
+                } else {
+                    queue.offer(child);
+                }
+            }
+
+        }
+        return leafs;
     }
 }
 
