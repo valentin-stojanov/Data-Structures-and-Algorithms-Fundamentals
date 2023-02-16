@@ -40,47 +40,29 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     @Override
     public String asIndentedPreOrder(int indent) {
         StringBuilder builder = new StringBuilder();
-        dfsTravers(this, builder, indent);
+        dfsTraversPreOrder(this, builder, indent);
         return builder.toString().trim();
-    }
-
-    private void dfsTravers(BinaryTree<E> root, StringBuilder builder, int indent) {
-        builder.append(createPadding(indent))
-                .append(root.getKey())
-                .append(System.lineSeparator());
-        if (root.leftChild != null){
-            dfsTravers(root.leftChild, builder, indent + 2);
-        }
-        if (root.rightChild != null){
-            dfsTravers(root.rightChild, builder, indent + 2);
-        }
     }
 
     @Override
     public List<AbstractBinaryTree<E>> preOrder() {
         List<AbstractBinaryTree<E>> list = new ArrayList<>();
-        dfsTravers(this, list);
+        dfsTraversPreOrder(this, list);
         return list;
-    }
-
-    private void dfsTravers(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
-        list.add(tree);
-        if (tree.getLeft() != null){
-            dfsTravers(tree.leftChild, list);
-        }
-        if (tree.getRight() != null){
-            dfsTravers(tree.rightChild, list);
-        }
     }
 
     @Override
     public List<AbstractBinaryTree<E>> inOrder() {
-        return null;
+        List<AbstractBinaryTree<E>> list = new ArrayList<>();
+        dfsTraversInOrder(this, list);
+        return list;
     }
 
     @Override
     public List<AbstractBinaryTree<E>> postOrder() {
-        return null;
+        List<AbstractBinaryTree<E>> list = new ArrayList<>();
+        dfsTraversPostOrder(this, list);
+        return list;
     }
 
     @Override
@@ -94,5 +76,43 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
             builder.append(" ");
         }
         return builder.toString();
+    }
+    private void dfsTraversPreOrder(BinaryTree<E> root, StringBuilder builder, int indent) {
+        builder.append(createPadding(indent))
+                .append(root.getKey())
+                .append(System.lineSeparator());
+        if (root.leftChild != null){
+            dfsTraversPreOrder(root.leftChild, builder, indent + 2);
+        }
+        if (root.rightChild != null){
+            dfsTraversPreOrder(root.rightChild, builder, indent + 2);
+        }
+    }
+    private void dfsTraversPreOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+        list.add(tree);
+        if (tree.getLeft() != null){
+            dfsTraversPreOrder(tree.leftChild, list);
+        }
+        if (tree.getRight() != null){
+            dfsTraversPreOrder(tree.rightChild, list);
+        }
+    }
+    private void dfsTraversInOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+        if (tree.getLeft() != null){
+            dfsTraversInOrder(tree.leftChild, list);
+        }
+        list.add(tree);
+        if (tree.getRight() != null){
+            dfsTraversInOrder(tree.rightChild, list);
+        }
+    }
+    private void dfsTraversPostOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+        if (tree.getLeft() != null){
+            dfsTraversPostOrder(tree.leftChild, list);
+        }
+        if (tree.getRight() != null){
+            dfsTraversPostOrder(tree.rightChild, list);
+        }
+        list.add(tree);
     }
 }
