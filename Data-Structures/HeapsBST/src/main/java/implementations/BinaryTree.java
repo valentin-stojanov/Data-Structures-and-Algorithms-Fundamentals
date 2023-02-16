@@ -88,44 +88,44 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
         return builder.toString();
     }
 
-    private void dfsTraversPreOrder(BinaryTree<E> root, StringBuilder builder, int indent) {
+    private void dfsTraversPreOrder(AbstractBinaryTree<E> root, StringBuilder builder, int indent) {
         builder.append(createPadding(indent))
                 .append(root.getKey())
                 .append(System.lineSeparator());
-        if (root.leftChild != null) {
-            dfsTraversPreOrder(root.leftChild, builder, indent + 2);
+        if (root.getLeft() != null) {
+            dfsTraversPreOrder(root.getLeft(), builder, indent + 2);
         }
-        if (root.rightChild != null) {
-            dfsTraversPreOrder(root.rightChild, builder, indent + 2);
+        if (root.getRight() != null) {
+            dfsTraversPreOrder(root.getRight(), builder, indent + 2);
         }
     }
 
-    private void dfsTraversPreOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+    private void dfsTraversPreOrder(AbstractBinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
         list.add(tree);
         if (tree.getLeft() != null) {
-            dfsTraversPreOrder(tree.leftChild, list);
+            dfsTraversPreOrder(tree.getLeft(), list);
         }
         if (tree.getRight() != null) {
-            dfsTraversPreOrder(tree.rightChild, list);
+            dfsTraversPreOrder(tree.getRight(), list);
         }
     }
 
-    private void dfsTraversInOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+    private void dfsTraversInOrder(AbstractBinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
         if (tree.getLeft() != null) {
-            dfsTraversInOrder(tree.leftChild, list);
+            dfsTraversInOrder(tree.getLeft(), list);
         }
         list.add(tree);
         if (tree.getRight() != null) {
-            dfsTraversInOrder(tree.rightChild, list);
+            dfsTraversInOrder(tree.getRight(), list);
         }
     }
 
-    private void dfsTraversPostOrder(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+    private void dfsTraversPostOrder(AbstractBinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
         if (tree.getLeft() != null) {
-            dfsTraversPostOrder(tree.leftChild, list);
+            dfsTraversPostOrder(tree.getLeft(), list);
         }
         if (tree.getRight() != null) {
-            dfsTraversPostOrder(tree.rightChild, list);
+            dfsTraversPostOrder(tree.getRight(), list);
         }
         list.add(tree);
     }
