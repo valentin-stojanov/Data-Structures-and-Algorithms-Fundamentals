@@ -2,6 +2,7 @@ package implementations;
 
 import interfaces.AbstractBinaryTree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -40,7 +41,7 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     public String asIndentedPreOrder(int indent) {
         StringBuilder builder = new StringBuilder();
         dfsTravers(this, builder, indent);
-        return builder.toString();
+        return builder.toString().trim();
     }
 
     private void dfsTravers(BinaryTree<E> root, StringBuilder builder, int indent) {
@@ -57,7 +58,19 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
 
     @Override
     public List<AbstractBinaryTree<E>> preOrder() {
-        return null;
+        List<AbstractBinaryTree<E>> list = new ArrayList<>();
+        dfsTravers(this, list);
+        return list;
+    }
+
+    private void dfsTravers(BinaryTree<E> tree, List<AbstractBinaryTree<E>> list) {
+        list.add(tree);
+        if (tree.getLeft() != null){
+            dfsTravers(tree.leftChild, list);
+        }
+        if (tree.getRight() != null){
+            dfsTravers(tree.rightChild, list);
+        }
     }
 
     @Override
