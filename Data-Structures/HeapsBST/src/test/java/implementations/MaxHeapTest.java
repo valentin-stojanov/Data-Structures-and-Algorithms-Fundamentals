@@ -9,11 +9,12 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class MaxHeapTest {
-    private Heap<Integer> maxHeap;
+    private MaxHeap<Integer> maxHeap;
 
     @Before
     public void setUp() {
         this.maxHeap = new MaxHeap<>();
+//        List<Integer> elements = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9,10));
         List<Integer> elements = new ArrayList<>(List.of(15, 25, 6, 9, 5, 8, 17, 16));
         for (Integer element : elements) {
             this.maxHeap.add(element);
@@ -35,6 +36,16 @@ public class MaxHeapTest {
     @Test
     public void testSizeShouldBeCorrect() {
         assertEquals(8, this.maxHeap.size());
+    }
+
+    @Test
+    public void testRemove() {
+        int size = this.maxHeap.size();
+        List<Integer> elements = new ArrayList<>(List.of(15, 25, 6, 9, 5, 8, 17, 16));
+        elements.sort((a,b) -> b - a);
+        for (Integer element : elements) {
+            assertEquals(this.maxHeap.remove(), element);
+        }
     }
 
 }
