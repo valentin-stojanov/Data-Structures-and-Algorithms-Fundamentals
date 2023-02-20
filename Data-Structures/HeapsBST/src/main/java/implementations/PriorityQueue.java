@@ -33,4 +33,8 @@ public class PriorityQueue<E extends Comparable<E>> implements AbstractQueue<E> 
     public E poll() {
         return this.maxHeap.remove();
     }
+
+    public void offer(E element){
+        this.add(element);
+    }
 }
