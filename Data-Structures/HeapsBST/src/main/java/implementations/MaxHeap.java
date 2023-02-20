@@ -27,13 +27,12 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
     @Override
     public E peek() {
-        if (this.size() == 0) {
-            throw new IllegalStateException();
-        }
+        this.ensureNonEmpty();
         return this.elements.get(0);
     }
 
     public E remove() {
+        this.ensureNonEmpty();
         this.swap(0, this.size() - 1);
         E remove = this.elements.remove(this.size() - 1);
         this.heapifyDown(0);
@@ -131,5 +130,10 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
     private int getLeftIndex(int parentIndex) {
         return 2 * parentIndex + 1;
+    }
+    private void ensureNonEmpty() {
+        if (this.size() == 0) {
+            throw new IllegalStateException();
+        }
     }
 }
