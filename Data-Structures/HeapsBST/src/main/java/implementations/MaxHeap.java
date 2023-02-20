@@ -25,10 +25,18 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         this.heapifyUp(this.size() - 1);
     }
 
+    @Override
+    public E peek() {
+        if (this.size() == 0) {
+            throw new IllegalStateException();
+        }
+        return this.elements.get(0);
+    }
+
     public E remove() {
-        swap(0, this.size() - 1);
+        this.swap(0, this.size() - 1);
         E remove = this.elements.remove(this.size() - 1);
-        heapifyDown(0);
+        this.heapifyDown(0);
         return remove;
     }
 
@@ -38,7 +46,7 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         int rightIndex = getRightIndex(parentIndex);
 
         if (this.size() == 2 && !isMaxHeap(this.elements.get(0), this.elements.get(1))) {
-            swap(0, 1);
+            this.swap(0, 1);
             return;
         }
         if (leftIndex >= this.size() || rightIndex >= this.size()) {
@@ -63,13 +71,15 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         }
 
         while (!isMaxHeap(parentElement, childElement)) {
-            swap(parentIndex, childIndex);
+            this.swap(parentIndex, childIndex);
             parentIndex = childIndex;
             leftIndex = getLeftIndex(parentIndex);
             rightIndex = getRightIndex(parentIndex);
+            
             if (leftIndex >= this.size() || rightIndex >= this.size()) {
                 break;
             }
+            
             parentElement = this.elements.get(parentIndex);
             leftElement = this.elements.get(leftIndex);
             rightElement = this.elements.get(rightIndex);
@@ -92,7 +102,7 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
         E parentElement = this.elements.get(parentIndex);
 
         while (!isMaxHeap(parentElement, currentElement)) {
-            swap(parentIndex, currentIndex);
+            this.swap(parentIndex, currentIndex);
             currentIndex = parentIndex;
             parentIndex = getParent(currentIndex);
             currentElement = this.elements.get(currentIndex);
@@ -113,14 +123,6 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
     private int getParent(int index) {
         return (index - 1) / 2;
-    }
-
-    @Override
-    public E peek() {
-        if (this.size() == 0) {
-            throw new IllegalStateException();
-        }
-        return this.elements.get(0);
     }
 
     private int getRightIndex(int parentIndex) {

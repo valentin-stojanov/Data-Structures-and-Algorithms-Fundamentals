@@ -36,4 +36,10 @@ public class PriorityQueueTest {
             assertEquals(expected[index++], queue.poll());
         }
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldThrowIllegalStateExceptionWhenPollOnEmptyQueue(){
+        PriorityQueue<Integer> emptyQueue = new PriorityQueue<>();
+        emptyQueue.poll();
+    }
 }
