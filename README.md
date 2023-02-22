@@ -19,7 +19,7 @@
   * [Sorting algorithms](Algorithms-Fundamentals/src/sortingAlgorithms)
 ```mermaid
 %%{init: {'theme':'forest'}}%%
-graph TB
+graph LR
 subgraph <b>Tree representation of Data Structure Fundamentals</b> 
     A-->B
     A-->C
