@@ -18,7 +18,7 @@
   * [Binary search](Algorithms-Fundamentals/src/BinarySearch.java) implemented with recursion
   * [Sorting algorithms](Algorithms-Fundamentals/src/sortingAlgorithms)
 ```mermaid
-%%{init: {'theme':'default'}}%%
+%%{init: {'theme':'neutral'}}%%
 graph LR 
 subgraph <b>Tree representation of Data Structure Fundamentals</b> 
     A--->B
