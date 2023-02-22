@@ -22,21 +22,21 @@
 graph LR 
 subgraph Tree representation of Data Structures Fundamentals</b> 
     A--->B
-    A---->C
-    A--->D
-    A-->E
+    A--->E
+    A-->C
+    A-->D
     A--->F
-    B--->BA
-    B--->BB
-    B--->BC
-    B--->BD
-    C--->CA
-    C--->CB
-    C--->CD
+    B-->BA
+    B-->BB
+    B-->BC
+    B-->BD
+    C-->CA
+    C-->CB
+    C-->CD
     D--->DA
-    E--->EA
-    E--->EB
-    E--->EC
+    E-->EA
+    E-->EB
+    E-->EC
     F--->FA
     F--->FB
     F--->FC
