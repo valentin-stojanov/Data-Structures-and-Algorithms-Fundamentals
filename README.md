@@ -19,28 +19,28 @@
   * [Sorting algorithms](Algorithms-Fundamentals/src/sortingAlgorithms)
 ```mermaid
 %%{init: {'theme':'forest'}}%%
-graph TB 
+graph LR 
 subgraph <b>Tree representation of Data Structure Fundamentals</b> 
-    A-->B
-    A-->C
-    A-->D
+    A--->B
+    A---->C
+    A--->D
     A-->E
-    A-->F
-    B-->BA
-    B-->BB
-    B-->BC
-    B-->BD
-    C-->CA
-    C-->CB
-    C-->CD
-    D-->DA
-    E-->EA
-    E-->EB
-    E-->EC
-    F-->FA
-    F-->FB
-    F-->FC
-    F-->FD
+    A--->F
+    B--->BA
+    B--->BB
+    B--->BC
+    B--->BD
+    C--->CA
+    C--->CB
+    C--->CD
+    D--->DA
+    E--->EA
+    E--->EB
+    E--->EC
+    F--->FA
+    F--->FB
+    F--->FC
+    F--->FD
       A((<a href='https://github.com/valentin-stojanov/Data-Structures-and-Algorithms-Fundamentals/tree/main/Data-Structures'>Data Structures</a>))
       B((<a href='https://github.com/valentin-stojanov/Data-Structures-and-Algorithms-Fundamentals/tree/main/Data-Structures/LinearDS/src'>Linear<br> Data Structures</a>))
       C((<a href='https://github.com/valentin-stojanov/Data-Structures-and-Algorithms-Fundamentals/tree/main/Data-Structures/LinearDS_Ex/src'>Exercise:<br> Linear <br> Data Structures</a>))
