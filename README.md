@@ -3,7 +3,7 @@
 
 ## **Content of the repository**
 
-### 1. [Data Structure Fundamentals ](Data-Structures)
+### 1. [Data Structures Fundamentals ](Data-Structures)
    * [Linear Data Structures](Data-Structures/LinearDS/src)
    * [Exercise: Linear Data Structures](Data-Structures/LinearDS_Ex/src)
    * [Trees Representation and Traversal (BFS, DFS)](Data-Structures/TreesRepresentation/src)
@@ -20,7 +20,7 @@
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 graph LR 
-subgraph <b>Tree representation of Data Structure Fundamentals</b> 
+subgraph Tree representation of Data Structures Fundamentals</b> 
     A--->B
     A---->C
     A--->D
