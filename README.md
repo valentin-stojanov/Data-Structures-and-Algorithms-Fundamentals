@@ -17,3 +17,10 @@
   * [Binary search](Algorithms-Fundamentals/src/searchingAlgorithms/SearchingAlgorithms.java) implemented with while loop 
   * [Binary search](Algorithms-Fundamentals/src/BinarySearch.java) implemented with recursion
   * [Sorting algorithms](Algorithms-Fundamentals/src/sortingAlgorithms)
+```mermaid
+graph LR
+    A-->B
+    
+    A((<a href='https://github.com/valentin-stojanov/Data-Structures-and-Algorithms-Fundamentals/tree/main/Data-Structures'>Data Structures</a>));
+    B((<a href='Data-Structures-and-Algorithms-Fundamentals/tree/main/Data-Structures/LinearDS'>Linear Data Structures</a>))
+```
