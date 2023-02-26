@@ -5,6 +5,9 @@ import java.util.List;
 public class BinarySearchTree<E extends Comparable<E>> {
     private Node<E> root;
 
+    private BinarySearchTree(Node<E> node){
+        this.root = node;
+    }
     public BinarySearchTree(E element) {
         this.root = new Node<>(element);
     }
@@ -51,6 +54,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public void insert(E element) {
         Node<E> node = this.getRoot();
+        if (node == null){
+            this.root = new Node<>(element);
+            return;
+        }
         insertRecursively(element, node);
     }
 
@@ -76,7 +83,22 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public BinarySearchTree<E> search(E element) {
-        return null;
+        Node<E> treeRoot = null;
+
+        Node<E> currentNode = this.root;
+
+        while (currentNode != null){
+            if (currentNode.value.equals(element)){
+                treeRoot = currentNode;
+                break;
+            }else if (element.compareTo(currentNode.getValue()) > 0){
+                currentNode = currentNode.getRight();
+            }else {
+                currentNode = currentNode.getLeft();
+            }
+        }
+
+        return new BinarySearchTree<E>(treeRoot);
     }
 
     public List<E> range(E first, E second) {

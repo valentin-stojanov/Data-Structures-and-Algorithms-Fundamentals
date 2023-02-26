@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class BinarySearchTreeTest {
@@ -60,6 +59,75 @@ public class BinarySearchTreeTest {
         this.bst.eachInOrder(list::add);
         List<Integer> expected = List.of(1, 5, 8, 12, 18, 21, 23);
         assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldFindNodeFive(){
+        BinarySearchTree<Integer> tree = this.bst.search(5);
+        List<Integer> list = new ArrayList<>();
+
+        tree.eachInOrder(list::add);
+        List<Integer> expected = List.of(1, 5, 8);
+
+        assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldFindNodeTwentyOne(){
+        BinarySearchTree<Integer> tree = this.bst.search(21);
+        List<Integer> list = new ArrayList<>();
+
+        tree.eachInOrder(list::add);
+        List<Integer> expected = List.of(18, 21, 23);
+
+        assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldFindNodeOne(){
+        BinarySearchTree<Integer> tree = this.bst.search(1);
+        List<Integer> list = new ArrayList<>();
+
+        tree.eachInOrder(list::add);
+        List<Integer> expected = List.of(1);
+
+        assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldFindNodeTwentyThree(){
+        BinarySearchTree<Integer> tree = this.bst.search(23);
+        List<Integer> list = new ArrayList<>();
+
+        tree.eachInOrder(list::add);
+        List<Integer> expected = List.of(23);
+
+        assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldFindTheRoot(){
+        BinarySearchTree<Integer> tree = this.bst.search(12);
+        List<Integer> list = new ArrayList<>();
+
+        tree.eachInOrder(list::add);
+        List<Integer> expected = List.of(1, 5, 8, 12, 18, 21, 23);
+
+        assertEquals(list, expected);
+    }
+
+    @Test
+    void shouldNotFindNodeTen(){
+        BinarySearchTree<Integer> tree = this.bst.search(10);
+        assertNull(tree.getRoot());
+    }
+
+    @Test
+    void shouldInsertCorrectlyAfterCreatingEmptyBST(){
+        BinarySearchTree<Integer> tree = this.bst.search(10);
+        tree.insert(12);
+
+        assertEquals(12, tree.getRoot().getValue());
     }
 
 }
