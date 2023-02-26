@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import java.util.List;
@@ -5,11 +6,16 @@ import java.util.List;
 public class BinarySearchTree<E extends Comparable<E>> {
     private Node<E> root;
 
-    private BinarySearchTree(Node<E> node){
+    private BinarySearchTree(Node<E> node) {
         this.root = node;
     }
+
     public BinarySearchTree(E element) {
         this.root = new Node<>(element);
+    }
+
+    public BinarySearchTree(){
+
     }
 
     public static class Node<E> {
@@ -39,11 +45,11 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     private void inOrder(Node<E> node, Consumer<E> consumer) {
-        if (node.getLeft() != null){
+        if (node.getLeft() != null) {
             inOrder(node.getLeft(), consumer);
         }
         consumer.accept(node.getValue());
-        if (node.getRight() != null){
+        if (node.getRight() != null) {
             inOrder(node.getRight(), consumer);
         }
     }
@@ -54,7 +60,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public void insert(E element) {
         Node<E> node = this.getRoot();
-        if (node == null){
+        if (node == null) {
             this.root = new Node<>(element);
             return;
         }
@@ -87,13 +93,13 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         Node<E> currentNode = this.root;
 
-        while (currentNode != null){
-            if (currentNode.value.equals(element)){
+        while (currentNode != null) {
+            if (currentNode.value.equals(element)) {
                 treeRoot = currentNode;
                 break;
-            }else if (element.compareTo(currentNode.getValue()) > 0){
+            } else if (element.compareTo(currentNode.getValue()) > 0) {
                 currentNode = currentNode.getRight();
-            }else {
+            } else {
                 currentNode = currentNode.getLeft();
             }
         }
@@ -102,10 +108,36 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public List<E> range(E first, E second) {
-        return null;
+        List<E> elements = new ArrayList<>();
+
+        this.eachInOrder(n -> {
+            if (first.compareTo(n) <= 0 && second.compareTo(n) >= 0) {
+                elements.add(n);
+            }
+        });
+
+        return elements;
     }
 
     public void deleteMin() {
+        Node<E> currentNode = this.getRoot();
+
+        if (this.getRoot() == null){
+            throw new IllegalArgumentException();
+        }
+        if (currentNode.leftChild == null){
+            this.root = null;
+            return;
+        }
+
+        while (true) {
+            if (currentNode.leftChild.leftChild == null){
+                currentNode.leftChild = null;
+                break;
+            } else {
+                currentNode = currentNode.leftChild;
+            }
+        }
 
     }
 
