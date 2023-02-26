@@ -79,7 +79,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public boolean contains(E element) {
-        return false;
+        return this.search(element).getRoot() != null;
     }
 
     public BinarySearchTree<E> search(E element) {

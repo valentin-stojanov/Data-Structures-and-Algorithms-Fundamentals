@@ -130,4 +130,34 @@ public class BinarySearchTreeTest {
         assertEquals(12, tree.getRoot().getValue());
     }
 
+    @Test
+    void shouldContainsNodeFive(){
+        assertTrue(this.bst.contains(5));
+    }
+
+    @Test
+    void shouldContainsNodeTwentyOne(){
+        assertTrue(this.bst.contains(21));
+    }
+
+    @Test
+    void shouldContainsNodeOne(){
+        assertTrue(this.bst.contains(1));
+    }
+
+    @Test
+    void shouldContainsNodeTwentyThree(){
+        assertTrue(this.bst.contains(23));
+    }
+
+    @Test
+    void shouldContainsTheRoot(){
+        assertTrue(this.bst.contains(23));
+    }
+
+    @Test
+    void shouldNotContainsNodeTen(){
+        assertFalse(this.bst.contains(10));
+    }
+
 }
