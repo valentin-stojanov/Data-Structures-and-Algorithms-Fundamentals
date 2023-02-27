@@ -188,7 +188,15 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    void shouldDeleteAllElements() {
+    void shouldDeleteFive() {
+        this.bst.deleteMin();
+        this.bst.deleteMin();
+        assertTrue(this.bst.contains(8));
+        assertFalse(this.bst.contains(1));
+    }
+
+    @Test
+    void shouldDeleteAllElementsWithDeleteMin() {
         this.bst.deleteMin();
         this.bst.deleteMin();
         this.bst.deleteMin();
@@ -200,7 +208,7 @@ public class BinarySearchTreeTest {
     }
 
     @Test()
-    void shouldThrowIllegalStateException() {
+    void shouldThrowIllegalStateExceptionDeleteMin() {
         this.bst.deleteMin();
         this.bst.deleteMin();
         this.bst.deleteMin();
@@ -209,6 +217,73 @@ public class BinarySearchTreeTest {
         this.bst.deleteMin();
         this.bst.deleteMin();
         assertThrows(IllegalArgumentException.class, () -> this.bst.deleteMin());
+    }
+
+    @Test
+    void shouldDeleteTwentyThree(){
+        this.bst.deleteMax();
+        assertFalse( this.bst.contains(23));
+    }
+
+    @Test
+    void shouldDeleteTwentyOne(){
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        assertFalse( this.bst.contains(21));
+        assertTrue( this.bst.contains(18));
+    }
+
+    @Test
+    void shouldDeleteAllElementsWithDeleteMax() {
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        assertNull(this.bst.getRoot());
+    }
+
+    @Test
+    void shouldThrowIllegalStateExceptionDeleteMax() {
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        this.bst.deleteMax();
+        assertThrows(IllegalArgumentException.class, () -> this.bst.deleteMax());
+    }
+
+    @Test
+    void sizeShouldBeZero(){
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        assertEquals(0, tree.count());
+    }
+
+    @Test
+    void sizeShouldBeSeven(){
+        assertEquals(7, this.bst.count());
+    }
+    @Test
+    void sizeShouldDecrease(){
+        this.bst.deleteMin();
+        this.bst.deleteMax();
+        assertEquals(5, this.bst.count());
+    }
+
+    @Test
+    void sizeShouldIncrease(){
+        this.bst.insert(13);
+        assertEquals(8, this.bst.count());
+    }
+
+    @Test
+    void rankTest(){
+        assertEquals(3, this.bst.rank(12));
+        assertEquals(5, this.bst.rank(21));
     }
 
 }
