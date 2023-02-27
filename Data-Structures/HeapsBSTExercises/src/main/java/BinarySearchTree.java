@@ -5,12 +5,10 @@ import java.util.List;
 
 public class BinarySearchTree<E extends Comparable<E>> {
     private Node<E> root;
-    private int size;
 
     private BinarySearchTree(Node<E> node) {
         this();
         this.root = node;
-        this.size++;
     }
 
     public BinarySearchTree(E element) {
@@ -18,16 +16,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public BinarySearchTree() {
-        this.size = 0;
     }
 
     public static class Node<E> {
         private E value;
+        private int size;
         private Node<E> leftChild;
         private Node<E> rightChild;
 
         public Node(E value) {
             this.value = value;
+            this.size = 1;
         }
 
         public Node<E> getLeft() {
@@ -68,22 +67,25 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return;
         }
         insertRecursively(element, node);
-        this.size++;
     }
 
     private void insertRecursively(E element, Node<E> node) {
 
         if (node.getValue().compareTo(element) > 0) {
             if (node.leftChild != null) {
+                node.size++;
                 insertRecursively(element, node.leftChild);
             } else {
                 node.leftChild = new Node<>(element);
+                node.size++;
             }
         } else {
             if (node.rightChild != null) {
+                node.size++;
                 insertRecursively(element, node.rightChild);
             } else {
                 node.rightChild = new Node<>(element);
+                node.size++;
             }
         }
     }
@@ -127,9 +129,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
         Node<E> currentNode = this.getRoot();
 
         checkIfTreeIsEmpty(this.getRoot());
-
+        currentNode.size--;
         while (currentNode.getLeft() != null && currentNode.getLeft().getLeft() != null) {
             currentNode = currentNode.getLeft();
+            currentNode.size--;
         }
 
         Node<E> leftChild = currentNode.leftChild;
@@ -141,15 +144,16 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else {
             currentNode.leftChild = null;
         }
-        this.size--;
     }
 
     public void deleteMax() {
         Node<E> currentNode = this.getRoot();
         checkIfTreeIsEmpty(this.getRoot());
 
+        currentNode.size--;
         while (currentNode.getRight() != null && currentNode.getRight().getRight() != null) {
             currentNode = currentNode.getRight();
+            currentNode.size--;
         }
 
         Node<E> leftChild = currentNode.leftChild;
@@ -162,11 +166,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
         } else {
             currentNode.rightChild = null;
         }
-        this.size--;
     }
 
     public int count() {
-        return this.size;
+        return this.root == null? 0: this.root.size;
     }
 
     public int rank(E element) {

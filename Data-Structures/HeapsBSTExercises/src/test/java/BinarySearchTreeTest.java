@@ -267,6 +267,13 @@ public class BinarySearchTreeTest {
     void sizeShouldBeSeven(){
         assertEquals(7, this.bst.count());
     }
+
+    @Test
+    void sizeShouldBeOne(){
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        tree.insert(7);
+        assertEquals(1, tree.count());
+    }
     @Test
     void sizeShouldDecrease(){
         this.bst.deleteMin();
@@ -278,6 +285,13 @@ public class BinarySearchTreeTest {
     void sizeShouldIncrease(){
         this.bst.insert(13);
         assertEquals(8, this.bst.count());
+    }
+
+    @Test
+    void sizeShouldBeThree(){
+        this.bst.deleteMin();
+        BinarySearchTree<Integer> tree = this.bst.search(21);
+        assertEquals(3, tree.count());
     }
 
     @Test
