@@ -122,23 +122,23 @@ public class BinarySearchTree<E extends Comparable<E>> {
     public void deleteMin() {
         Node<E> currentNode = this.getRoot();
 
-        if (this.getRoot() == null){
+        if (currentNode == null){
             throw new IllegalArgumentException();
         }
-        if (currentNode.leftChild == null){
-            this.root = null;
-            return;
+
+        while (currentNode.getLeft() != null && currentNode.getLeft().getLeft() != null){
+            currentNode = currentNode.getLeft();
         }
 
-        while (true) {
-            if (currentNode.leftChild.leftChild == null){
-                currentNode.leftChild = null;
-                break;
-            } else {
-                currentNode = currentNode.leftChild;
-            }
+        Node<E> leftChild = currentNode.leftChild;
+        Node<E> rightChild = currentNode.rightChild;
+        if (leftChild == null){
+            this.root = rightChild;
+        }else if (leftChild.rightChild != null && leftChild.value.compareTo(leftChild.rightChild.value) < 0){
+            currentNode.leftChild = leftChild.rightChild;
+        } else {
+            currentNode.leftChild = null;
         }
-
     }
 
     public void deleteMax() {

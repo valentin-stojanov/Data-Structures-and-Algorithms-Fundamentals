@@ -192,6 +192,10 @@ public class BinarySearchTreeTest {
         this.bst.deleteMin();
         this.bst.deleteMin();
         this.bst.deleteMin();
+        this.bst.deleteMin();
+        this.bst.deleteMin();
+        this.bst.deleteMin();
+        this.bst.deleteMin();
         assertNull(this.bst.getRoot());
     }
 
@@ -200,7 +204,10 @@ public class BinarySearchTreeTest {
         this.bst.deleteMin();
         this.bst.deleteMin();
         this.bst.deleteMin();
-
+        this.bst.deleteMin();
+        this.bst.deleteMin();
+        this.bst.deleteMin();
+        this.bst.deleteMin();
         assertThrows(IllegalArgumentException.class, () -> this.bst.deleteMin());
     }
 
