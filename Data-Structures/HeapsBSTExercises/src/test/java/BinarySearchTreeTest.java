@@ -296,11 +296,28 @@ public class BinarySearchTreeTest {
 
     @Test
     void rankTest(){
-        assertEquals(2, this.bst.rank(8));
-        assertEquals(3, this.bst.rank(12));
-        assertEquals(5, this.bst.rank(21));
-        assertEquals(1, this.bst.rank(5));
-        assertEquals(0, this.bst.rank(18));
+       BinarySearchTree<Integer> tree = new BinarySearchTree<>(12);
+        tree.insert(7);
+        tree.insert(21);
+        tree.insert(5);
+        tree.insert(9);
+        tree.insert(1);
+        tree.insert(8);
+        tree.insert(10);
+        tree.insert(6);
+        tree.insert(18);
+        tree.insert(23);
+        tree.insert(4);
+
+        assertEquals(0, tree.rank(1));
+        assertEquals(1, tree.rank(4));
+        assertEquals(8, tree.rank(12));
+        assertEquals(5, tree.rank(8));
+        assertEquals(9, tree.rank(13));
+        assertEquals(9, tree.rank(18));
+        assertEquals(11, tree.rank(23));
+        assertEquals(12, tree.rank(24));
+
     }
 
 }

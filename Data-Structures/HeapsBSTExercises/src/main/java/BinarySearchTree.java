@@ -176,9 +176,39 @@ public class BinarySearchTree<E extends Comparable<E>> {
         if (element == null){
             return 0;
         }
-//TODO: implement rank method.
+        Integer [] rank = new Integer[1];
+        rank[0] = 0;
 
-        return 0;
+        if (this.root.value.compareTo(element) > 0){
+            dfsTravers(rank, this.root.leftChild, element);
+        }else if (this.root.value.compareTo(element) < 0){
+//            adding the size of left part of the tree (left part (root.leftChildren tree) and the root are always smaller than root.rightChild)
+            if (this.root.leftChild == null){
+                rank[0] += 1;
+            }else {
+                rank[0] += this.root.leftChild.size + 1;
+            }
+            dfsTravers(rank,this.root.rightChild, element);
+        }else {
+            if (this.root.leftChild == null){
+                return 0;
+            }
+//            if the element is the root -> all left children are smaller.
+            rank[0] = this.root.leftChild.size;
+        }
+        return rank[0];
+    }
+
+    private void dfsTravers(Integer[] rank, Node<E> node, E element) {
+        if (node == null){
+            return;
+        }
+
+        if (node.value.compareTo(element) < 0){
+            rank[0]++;
+        }
+        dfsTravers(rank, node.leftChild, element);
+        dfsTravers(rank, node.rightChild, element);
     }
 
     private BinarySearchTree<E> searchParentOf(E element) {
