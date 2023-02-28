@@ -320,4 +320,17 @@ public class BinarySearchTreeTest {
 
     }
 
+    @Test
+    void testFloor(){
+        assertEquals(5, this.bst.floor(8));
+        assertEquals(12, this.bst.floor(18));
+        assertNull(this.bst.floor(-1));
+    }
+
+    @Test
+    void testCeil(){
+        assertEquals(12, this.bst.ceil(8));
+        assertEquals(21, this.bst.ceil(12));
+        assertNull(this.bst.ceil(23));
+    }
 }

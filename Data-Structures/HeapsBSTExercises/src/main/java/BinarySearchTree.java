@@ -169,28 +169,28 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public int count() {
-        return this.root == null? 0: this.root.size;
+        return this.root == null ? 0 : this.root.size;
     }
 
     public int rank(E element) {
-        if (element == null){
+        if (element == null) {
             return 0;
         }
-        Integer [] rank = new Integer[1];
+        Integer[] rank = new Integer[1];
         rank[0] = 0;
 
-        if (this.root.value.compareTo(element) > 0){
+        if (this.root.value.compareTo(element) > 0) {
             dfsTravers(rank, this.root.leftChild, element);
-        }else if (this.root.value.compareTo(element) < 0){
+        } else if (this.root.value.compareTo(element) < 0) {
 //            adding the size of left part of the tree (left part (root.leftChildren tree) and the root are always smaller than root.rightChild)
-            if (this.root.leftChild == null){
+            if (this.root.leftChild == null) {
                 rank[0] += 1;
-            }else {
+            } else {
                 rank[0] += this.root.leftChild.size + 1;
             }
-            dfsTravers(rank,this.root.rightChild, element);
-        }else {
-            if (this.root.leftChild == null){
+            dfsTravers(rank, this.root.rightChild, element);
+        } else {
+            if (this.root.leftChild == null) {
                 return 0;
             }
 //            if the element is the root -> all left children are smaller.
@@ -200,11 +200,11 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     private void dfsTravers(Integer[] rank, Node<E> node, E element) {
-        if (node == null){
+        if (node == null) {
             return;
         }
 
-        if (node.value.compareTo(element) < 0){
+        if (node.value.compareTo(element) < 0) {
             rank[0]++;
         }
         dfsTravers(rank, node.leftChild, element);
@@ -216,16 +216,15 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         Node<E> currentNode = this.root;
 
-        while (currentNode != null ) {
+        while (currentNode != null) {
 
             if (currentNode.leftChild != null && currentNode.leftChild.value.equals(element)) {
                 treeRoot = currentNode;
                 break;
-            }else if (currentNode.rightChild != null && currentNode.rightChild.value.equals(element)){
+            } else if (currentNode.rightChild != null && currentNode.rightChild.value.equals(element)) {
                 treeRoot = currentNode;
                 break;
-            }
-            else if (element.compareTo(currentNode.getValue()) > 0) {
+            } else if (element.compareTo(currentNode.getValue()) > 0) {
                 currentNode = currentNode.getRight();
             } else {
                 currentNode = currentNode.getLeft();
@@ -237,11 +236,59 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
 
     public E ceil(E element) {
-        return null;
+        if (this.root == null) {
+            return null;
+        }
+
+        Node<E> current = this.root;
+        Node<E> nearestBigger = null;
+
+        while (current != null) {
+            if (element.compareTo(current.getValue()) < 0){
+                nearestBigger = current;
+                current = current.getLeft();
+            } else if (element.compareTo(current.getValue()) > 0) {
+                current = current.getRight();
+            } else {
+                Node<E> right = current.getRight();
+                if (right != null && nearestBigger != null){
+                    nearestBigger = right.getValue().compareTo(nearestBigger.getValue()) < 0 ? right : nearestBigger;
+                } else if (nearestBigger == null) {
+                    nearestBigger = right;
+                }
+                break;
+            }
+        }
+
+        return nearestBigger == null ? null : nearestBigger.getValue();
     }
 
     public E floor(E element) {
-        return null;
+        if (this.root == null) {
+            return null;
+        }
+
+        Node<E> current = this.root;
+        Node<E> nearestSmaller = null;
+
+        while (current != null) {
+            if (element.compareTo(current.getValue()) > 0) {
+                nearestSmaller = current;
+                current = current.getRight();
+            } else if (element.compareTo(current.getValue()) < 0) {
+                current = current.getLeft();
+            } else {
+                Node<E> left = current.getLeft();
+
+                if (left != null && nearestSmaller != null) {
+                    nearestSmaller = left.getValue().compareTo(nearestSmaller.getValue()) > 0 ? left : nearestSmaller;
+                } else if (nearestSmaller == null) {
+                    nearestSmaller = left;
+                }
+                break;
+            }
+        }
+        return nearestSmaller == null ? null : nearestSmaller.getValue();
     }
 
     private void checkIfTreeIsEmpty(Node<E> currentNode) {
