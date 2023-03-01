@@ -1,22 +1,31 @@
 package solutions;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class LowestCommonAncestorTest {
-
-    @Test
-    public void testLCA() {
-        BinaryTree binaryTree =
+    private BinaryTree binaryTree;
+    @BeforeEach
+    void setUp(){
+        this.binaryTree =
                 new BinaryTree(7,
                         new BinaryTree(21, null, null),
                         new BinaryTree(14,
                                 new BinaryTree(23, null, null),
                                 new BinaryTree(6, null,
                                         new BinaryTree(13, null, null))));
+    }
+    @Test
+    void testLCA() {
+        assertEquals(Integer.valueOf(7), this.binaryTree.findLowestCommonAncestor(21, 13));
+        assertEquals(Integer.valueOf(14), this.binaryTree.findLowestCommonAncestor(23, 13));
+        assertEquals(Integer.valueOf(14), this.binaryTree.findLowestCommonAncestor(6, 13));
+        assertNull(this.binaryTree.findLowestCommonAncestor(7, 13));
 
-        assertEquals(Integer.valueOf(14), binaryTree.findLowestCommonAncestor(23, 13));
     }
 
 }
