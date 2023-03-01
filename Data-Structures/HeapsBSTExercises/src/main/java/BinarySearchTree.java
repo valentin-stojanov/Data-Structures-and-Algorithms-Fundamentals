@@ -211,30 +211,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
         dfsTravers(rank, node.rightChild, element);
     }
 
-    private BinarySearchTree<E> searchParentOf(E element) {
-        Node<E> treeRoot = null;
-
-        Node<E> currentNode = this.root;
-
-        while (currentNode != null) {
-
-            if (currentNode.leftChild != null && currentNode.leftChild.value.equals(element)) {
-                treeRoot = currentNode;
-                break;
-            } else if (currentNode.rightChild != null && currentNode.rightChild.value.equals(element)) {
-                treeRoot = currentNode;
-                break;
-            } else if (element.compareTo(currentNode.getValue()) > 0) {
-                currentNode = currentNode.getRight();
-            } else {
-                currentNode = currentNode.getLeft();
-            }
-        }
-
-        return new BinarySearchTree<E>(treeRoot);
-    }
-
-
     public E ceil(E element) {
         if (this.root == null) {
             return null;
