@@ -45,7 +45,7 @@ public class BinaryTree {
         [secondAncestors.get(i).equals(firstAncestors.get(i - startIndex)] comparing elements at the same depth.
         (i > startIndex) - needed if the elements are at the same branch we will start to compare first with itself which is wrong.
 
-            tree        | first(23)|  second(13) LCA-14     | first(6)  second(13)  -> LCA- 14 (same branch)
+            tree        | first(23) second(13) -> LCA-14    | first(6)  second(13) -> LCA- 14 (same branch)
              7          |    7        7  -------------- 1   |   7       7
            /   \        |      \       \                    |    \       \
           21    14      |      14       14  ----------- 2   |     14      14
@@ -60,6 +60,8 @@ public class BinaryTree {
                 break;
             }
         }
+
+
         return commonAncestor;
     }
 
