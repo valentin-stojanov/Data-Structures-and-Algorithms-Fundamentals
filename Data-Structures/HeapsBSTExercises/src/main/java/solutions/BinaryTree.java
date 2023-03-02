@@ -37,9 +37,22 @@ public class BinaryTree {
         ArrayList<Integer> firstAncestors = findAncestors(firstAndSecond.get(0));
         ArrayList<Integer> secondAncestors = findAncestors(firstAndSecond.get(1));
 
+//        calculating the depth difference between the second and the first elements.
         int startIndex = secondAncestors.size() - firstAncestors.size();
         /*
-        (i > startIndex) needed if first and second are at the same branch
+        (i > startIndex) needed if first and second are at the same branch;
+        In all cases firstAncestors.size() <= secondAncestors.size() -> depth of the first element <= depth of the second element;
+        [secondAncestors.get(i).equals(firstAncestors.get(i - startIndex)] comparing elements at the same depth.
+        (i > startIndex) - needed if the elements are at the same branch we will start to compare first with itself which is wrong.
+
+            tree        | first(23)|  second(13) LCA-14     | first(6)  second(13)  -> LCA- 14 (same branch)
+             7          |    7        7  -------------- 1   |   7       7
+           /   \        |      \       \                    |    \       \
+          21    14      |      14       14  ----------- 2   |     14      14
+               /  \     |     /          \                  |      \       \
+              23   6    |    23           6  ---------- 3   |       6       6
+                    \   |                  \                |                \
+                    13  |                   13 -------- 4   |                 13
         */
         for (int i = startIndex; i < secondAncestors.size(); i++) {
             if (secondAncestors.get(i).equals(firstAncestors.get(i - startIndex)) && i > startIndex){
