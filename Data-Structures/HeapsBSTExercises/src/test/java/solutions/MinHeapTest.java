@@ -2,18 +2,20 @@ package solutions;
 
 import interfaces.Heap;
 import model.Product;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class MinHeapTest {
     private MinHeap<Product> minHeap;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.minHeap = new MinHeap<>();
         List<Integer> elements = new ArrayList<>(List.of(15, 25, 6, 9, 5, 8, 17, 16));
@@ -23,10 +25,30 @@ public class MinHeapTest {
     }
 
     @Test
+    void checkStructureOfTheHeap(){
+        List<Integer> expected = List.of(5,6,8,9,15,16,17,25);
+        for (int i = 0; i < expected.size(); i++) {
+            assertEquals(expected.get(i), this.minHeap.poll().getPrice());
+        }
+    }
+
+    @Test
     public void testHeapifyUpAddOne() {
         Heap<Product> heap = new MinHeap<>();
         heap.add(new Product(13));
         assertEquals(13, heap.peek().getPrice());
+    }
+
+    @Test
+    public void shouldThrowIllegalStateExceptionWhenPeakEmptyTree() {
+        Heap<Product> heap = new MinHeap<>();
+        assertThrows( IllegalStateException.class, heap::peek);
+    }
+
+    @Test
+    public void shouldThrowIllegalStateExceptionWhenPollEmptyTree() {
+        Heap<Product> heap = new MinHeap<>();
+        assertThrows( IllegalStateException.class, heap::poll);
     }
 
     @Test
