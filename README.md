@@ -1,5 +1,5 @@
 # Data Structures and Algorithms Fundamentals
-#### This repo holds my [Data structure](https://softuni.bg/trainings/3922/data-structures-fundamentals-with-java-november-2022) and [Algorithms](https://softuni.bg/trainings/3811/algorithms-fundamentals-with-java-june-2022) Fundamentals courses at SoftUni.
+#### This repo holds my [Data structures](https://softuni.bg/trainings/3922/data-structures-fundamentals-with-java-november-2022) and [Algorithms](https://softuni.bg/trainings/3811/algorithms-fundamentals-with-java-june-2022) Fundamentals courses at SoftUni.
 
 ## **Content of the repository**
 
