@@ -51,7 +51,21 @@ public class MinHeap<E extends Comparable<E> & Decrease<E>> implements Heap<E> {
 
     @Override
     public void decrease(E element) {
+        int indexOfElement = this.elements.indexOf(element);
+        if (indexOfElement == -1) {
+            throw new IllegalStateException("Element: " + element + " doesn't exist!");
+        }
+        if (indexOfElement == 0) {
+            this.elements.get(0)
+                    .decrease();
+            return;
+        }
 
+        int indexOfParentElement = this.getParentIndex(indexOfElement);
+
+        this.elements.get(indexOfElement)
+                .decrease();
+        this.heapifyUp(this.elements.get(indexOfParentElement), this.elements.get(indexOfElement));
     }
 
     private boolean isBigger(E parent, E element) {
