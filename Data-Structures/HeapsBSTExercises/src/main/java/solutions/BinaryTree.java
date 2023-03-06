@@ -1,9 +1,6 @@
 package solutions;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -20,13 +17,13 @@ public class BinaryTree {
 
         setParent(this.first);
         setParent(this.second);
-
     }
+
 
     public Integer findLowestCommonAncestor(int first, int second) {
         Integer commonAncestor = null;
         ArrayList<BinaryTree> firstAndSecond = bfs(first, second);
-        if (firstAndSecond.size() > 2){
+        if (firstAndSecond.size() > 2) {
             throw new IllegalArgumentException("Duplicated elements");
         } else if (firstAndSecond.size() == 1) {
             throw new IllegalArgumentException("Only one of the elements are in the Binary tree: " + firstAndSecond.get(0));
@@ -55,7 +52,7 @@ public class BinaryTree {
                     13  |                   13 -------- 4   |                 13
         */
         for (int i = startIndex; i < secondAncestors.size(); i++) {
-            if (secondAncestors.get(i).equals(firstAncestors.get(i - startIndex)) && i > startIndex){
+            if (secondAncestors.get(i).equals(firstAncestors.get(i - startIndex)) && i > startIndex) {
                 commonAncestor = secondAncestors.get(i);
                 break;
             }
@@ -65,10 +62,70 @@ public class BinaryTree {
         return commonAncestor;
     }
 
+    public List<Integer> topView() {
+        Queue<BinaryTree> queue = new ArrayDeque<>();
+        queue.offer(this);
+
+        Map<BinaryTree, int[]> nodeCoordinatesMap = new HashMap<>();
+//                                  new int[]{level, offset}
+        nodeCoordinatesMap.put(this, new int[]{0, 0});
+
+        List<Integer> topViewNodes = new ArrayList<>();
+        topViewNodes.add(this.key);
+
+        int[] leftmostNodeCoordinates = new int[]{0, 0};
+        int[] rightmostNodeCoordinates = new int[]{0, 0};
+
+        while (queue.size() > 0) {
+
+            BinaryTree currentNode = queue.poll();
+            int[] currentCoordinates = nodeCoordinatesMap.get(currentNode);
+
+            BinaryTree first = currentNode.first;
+            BinaryTree second = currentNode.second;
+
+            if (first != null) {
+                queue.offer(first);
+                int[] firstCoordinates = new int[]{currentCoordinates[0] + 1, currentCoordinates[1] - 1};
+                nodeCoordinatesMap.put(first, firstCoordinates);
+                if (isLeftmostNode(leftmostNodeCoordinates, firstCoordinates)) {
+                    leftmostNodeCoordinates = firstCoordinates;
+                    topViewNodes.add(first.key);
+                }
+            }
+            if (second != null) {
+                queue.offer(second);
+                int[] secondCoordinates = new int[]{currentCoordinates[0] + 1, currentCoordinates[1] + 1};
+                nodeCoordinatesMap.put(second, secondCoordinates);
+                if (isRightmostNode(rightmostNodeCoordinates, secondCoordinates)) {
+                    rightmostNodeCoordinates = secondCoordinates;
+                    topViewNodes.add(second.key);
+                }
+            }
+        }
+        return topViewNodes;
+    }
+
+    private boolean isRightmostNode(int[] rightmostNodeCoordinates, int[] currentCoordinates) {
+        return currentCoordinates[1] > rightmostNodeCoordinates[1];
+
+    }
+
+    private boolean isLeftmostNode(int[] leftmostNodeCoordinates, int[] currentCoordinates) {
+        return currentCoordinates[1] < leftmostNodeCoordinates[1];
+    }
+
+
+    private void printCoordinates(Map<BinaryTree, int[]> listCoordinates) {
+        for (Map.Entry<BinaryTree, int[]> treeEntry : listCoordinates.entrySet()) {
+            System.out.println(treeEntry.getKey().key + "-->" + Arrays.toString(treeEntry.getValue()));
+        }
+    }
+
     private ArrayList<Integer> findAncestors(BinaryTree binaryTree) {
         ArrayList<Integer> ancestors = new ArrayList<>();
 
-        while (binaryTree != null){
+        while (binaryTree != null) {
             ancestors.add(binaryTree.key);
             binaryTree = binaryTree.parent;
         }
@@ -96,11 +153,6 @@ public class BinaryTree {
         }
         return firstAndSecond;
     }
-
-    public List<Integer> topView() {
-        return null;
-    }
-
 
 
     private void setParent(BinaryTree child) {
