@@ -9,6 +9,7 @@
    * [Trees Representation and Traversal (BFS, DFS)](Data-Structures/TreesRepresentation/src)
    * [Exercise: Trees Representation and Traversal (BFS, DFS)](Data-Structures/TreesRepresentation_Ex/src)
    * [Heaps, BST](Data-Structures/HeapsBST/src)
+   * [Exercise: Heaps, BST](Data-Structures/HeapsBSTExercises/src)
 
 ### 2. [Algorithms Fundamentals](Algorithms-Fundamentals)
 * [Recursion and Backtracking](Algorithms-Fundamentals/src/recursionAndBacktraking)
