@@ -11,13 +11,11 @@
    * [Heaps, BST](Data-Structures/HeapsBST/src)
    * [Exercise: Heaps, BST](Data-Structures/HeapsBSTExercises/src)
 
-### 2. [Algorithms Fundamentals](Algorithms-Fundamentals)
-* [Recursion and Backtracking](Algorithms-Fundamentals/src/recursionAndBacktraking)
-* [Combinatorial Problems](Algorithms-Fundamentals/src/combinatorialProblems)
-* Searching algorithms
-  * [Binary search](Algorithms-Fundamentals/src/searchingAlgorithms/SearchingAlgorithms.java) implemented with while loop 
-  * [Binary search](Algorithms-Fundamentals/src/BinarySearch.java) implemented with recursion
-  * [Sorting algorithms](Algorithms-Fundamentals/src/sortingAlgorithms)
+### 2. [Algorithms Fundamentals](Algorithms)
+* [Recursion and Backtracking](Algorithms/Recursion-And-Backtracking)
+* [Combinatorial Problems](Algorithms/Combinatorial-Problems)
+* [Searching algorithms](Algorithms/Searching-Algorithms)
+* [Sorting algorithms](Algorithms/Sorting-Algorithms)
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 graph LR 
