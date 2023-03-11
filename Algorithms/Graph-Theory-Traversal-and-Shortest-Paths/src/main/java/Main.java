@@ -11,7 +11,7 @@ public class Main {
         for (int i = 0; i < numberOfLines; i++) {
             graph.add(new ArrayList<>());
             numbers = scanner.nextLine();
-            if (numbers.trim() == "") {
+            if (numbers.trim().equals("")) {
                 continue;
             }
 
