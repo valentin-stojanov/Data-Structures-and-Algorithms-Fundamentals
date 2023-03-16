@@ -7,49 +7,71 @@ public class ConnectedComponents {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        /*
+        9
+        3 6
+        3 4 5 6
+        8
+        0 1 5
+        1 6
+        1 3
+        0 1 4
+
+        2
+         */
+
+        Map<Integer, Vertex> graph = new HashMap<>();
+        Map<Integer, Boolean> visited = new HashMap<>();
         int n = Integer.parseInt(scanner.nextLine());
 
-        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.put(i, new Vertex(i));
+            visited.put(i, false);
+        }
 
         for (int i = 0; i < n; i++) {
             String tokens = scanner.nextLine();
-            List<Integer> neighbours;
             if (tokens.equals("")) {
-                neighbours = new ArrayList<>();
-            } else {
-                neighbours = Arrays.stream(tokens
-                                .split("\\s+"))
-                        .map(Integer::parseInt)
-                        .collect(Collectors.toList());
+                continue;
             }
 
-            graph.add(neighbours);
+            Vertex currentNode = graph.get(i);
+            List<Integer> nodeList = Arrays.stream(tokens.split("\\s+"))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            for (Integer integer : nodeList) {
+                Vertex node = graph.get(integer);
+                currentNode.getNeighbours().add(node);
+            }
         }
 
-        boolean[] visited = new boolean[graph.size()];
         List<Deque<Integer>> componentsList = new ArrayList<>();
+        for (Vertex node : graph.values()) {
 
-        for (int node = 0; node < graph.size(); node++) {
-            if (!visited[node]) {
+            if (!visited.get(node.value)) {
                 Deque<Integer> components = new ArrayDeque<>();
                 dfsTraverse(node, graph, visited, components);
                 componentsList.add(components);
             }
         }
 
-
-
+        for (Deque<Integer> integers : componentsList) {
+            System.out.println(integers);
+        }
     }
 
-    private static void dfsTraverse(int node, List<List<Integer>> graph, boolean[] visited, Deque<Integer> components) {
-        visited[node] = true;
-        components.push(node);
-        List<Integer> neighbours = graph.get(node);
+    private static void dfsTraverse(Vertex node, Map<Integer, Vertex> graph, Map<Integer, Boolean> visited, Deque<Integer> components) {
+        if (!visited.get(node.value)) {
+            visited.put(node.value, true);
+            components.push(node.value);
 
-        for (Integer neighbour : neighbours) {
-            if (!visited[neighbour]) {
+            List<Vertex> neighbours = graph.get(node.value).getNeighbours();
+            for (Vertex neighbour : neighbours) {
                 dfsTraverse(neighbour, graph, visited, components);
             }
+
         }
+
     }
 }
