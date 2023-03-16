@@ -1,4 +1,4 @@
-package exercise;
+package exercise.connectedComponents;
 
 import java.util.*;
 import java.util.stream.Collectors;
